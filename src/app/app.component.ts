@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, enableProdMode } from '@angular/core';
+import { isDevMode } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'StockWave';
+  constructor(){
+    console.log(isDevMode());
+  }
 }

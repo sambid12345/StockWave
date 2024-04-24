@@ -4,4 +4,4 @@ WORKDIR /InvUI
 COPY . /InvUI
 RUN npm install
 EXPOSE 4200:4200
-CMD [ "npm", "run", "start"]
+CMD [ "npm", "run", "start:prod"]
