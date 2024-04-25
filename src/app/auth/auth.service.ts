@@ -15,12 +15,12 @@ export class AuthService {
     }
 
     userLogin(userCred:any){
-        let url = `${environment.API_URL}users/login`;
+        let url = `${environment.baseUrl}users/login`;
         return this.http.post(url,userCred)
     }
 
     userSignup(userCred: any){
-        let url = `${environment.API_URL}users/signup`;
+        let url = `${environment.baseUrl}users/signup`;
         return this.http.post(url,userCred)
     }
 }
