@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit{
 
   registerForm!:FormGroup;
   passwordType:string = 'password';
+  confirmPassType: string = 'password';
   showRegisterLoader:boolean = false;
 
   showToast:boolean = false;
@@ -32,8 +33,9 @@ export class RegisterComponent implements OnInit{
       email:['sam@gmail.com',[Validators.required, Validators.email]],
       username:['',[Validators.required]],
       password:['',[Validators.required, this.passwordStrengthValidator.bind(this)]],
+      rePassword:['',[Validators.required]],
       role: ['user']
-     });
+     }, {validators: this.passwordMatchValidator});
   }
 
   onRegister(){
@@ -53,6 +55,18 @@ export class RegisterComponent implements OnInit{
         this.toastType = 'error';
       }
     })
+  }
+
+  passwordMatchValidator(registrationFrm: FormGroup){
+    console.log('registration form', registrationFrm);
+    let password = registrationFrm.get('password');
+    let confirmPassword = registrationFrm.get('rePassword');
+
+    if(password?.value != confirmPassword?.value){
+      confirmPassword?.setErrors({mismatched: true})
+    }else{
+      confirmPassword?.setErrors(null)
+    }
   }
 
   navigateTo(path:string){
