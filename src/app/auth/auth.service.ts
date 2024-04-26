@@ -23,4 +23,11 @@ export class AuthService {
         let url = `${environment.baseUrl}users/signup`;
         return this.http.post(url,userCred)
     }
+
+    isLoggedin(){
+        if(localStorage.getItem('authToken')){
+            return true;
+        }
+        return false;
+    }
 }

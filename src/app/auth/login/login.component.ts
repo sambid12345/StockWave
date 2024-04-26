@@ -25,10 +25,21 @@ export class LoginComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+
+    this.checkLoggedinStatus();
+
      this.loginForm = this.fb.group({
       email:['sambid@gmail.com',[Validators.required,Validators.email]],
       password:['Sambid@12345',Validators.required]
      });
+  }
+
+  checkLoggedinStatus(){
+    if(this.authService.isLoggedin()){
+      this.router.navigate(['home'])
+    }else{
+      this.router.navigate(['login'])
+    }
   }
 
   onLogin(){
@@ -41,6 +52,9 @@ export class LoginComponent implements OnInit{
           this.toastMessage = 'Login Successful!'
           this.showLoginLoader = false;
           this.toastType = 'success';
+          console.log('response', res);
+          localStorage.setItem("authToken" , res.token);
+          this.router.navigate(['home']);
         },
         error: (err:any)=>{
           console.log('error -- -- -- - ',err)

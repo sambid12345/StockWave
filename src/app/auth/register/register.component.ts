@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit{
   }
 
   passwordMatchValidator(registrationFrm: FormGroup){
-    console.log('registration form', registrationFrm);
+    // console.log('registration form', registrationFrm);
     let password = registrationFrm.get('password');
     let confirmPassword = registrationFrm.get('rePassword');
 
