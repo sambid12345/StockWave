@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/components/toast/toast-service.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit{
   constructor(
     private fb:FormBuilder,
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private toastService: ToastService
   ){}
 
   ngOnInit(): void {
@@ -29,8 +31,8 @@ export class LoginComponent implements OnInit{
     this.checkLoggedinStatus();
 
      this.loginForm = this.fb.group({
-      email:['sambid@gmail.com',[Validators.required,Validators.email]],
-      password:['Sambid@12345',Validators.required]
+      email:['sam@gmail.com',[Validators.required,Validators.email]],
+      password:['Sam@12345',Validators.required]
      });
   }
 
@@ -48,13 +50,25 @@ export class LoginComponent implements OnInit{
     if(this.loginForm.valid){
       this.authService.userLogin(this.loginForm.value).subscribe({
         next: (res:any)=>{
-          this.showToast = true;
-          this.toastMessage = 'Login Successful!'
+
+          // this.showToast = true;
+          // this.toastMessage = 'Login Successful!';
+          // this.toastType = 'success';
+
+          this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
+
           this.showLoginLoader = false;
-          this.toastType = 'success';
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
+          localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
+          localStorage.setItem('expiresIn', '20000'); // expiresIn: 20 sec
           this.router.navigate(['home']);
+          setTimeout(()=>{
+            localStorage.removeItem("authToken");
+            localStorage.removeItem('loggeinTimestamp');
+            localStorage.removeItem('expiresIn')
+            this.router.navigate(['login']);
+          }, 20000);
         },
         error: (err:any)=>{
           console.log('error -- -- -- - ',err)

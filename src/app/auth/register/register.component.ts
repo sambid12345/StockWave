@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ToastService } from 'src/app/shared/components/toast/toast-service.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit{
   constructor(
     private fb:FormBuilder,
     private router:Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ){}
   ngOnInit(): void {
 
@@ -42,10 +44,14 @@ export class RegisterComponent implements OnInit{
     console.log('register form value -- ',this.registerForm.value);
     this.authService.userSignup(this.registerForm.value).subscribe({
       next: (res:any)=>{
-        this.showToast = true;
-        this.toastMessage = res?.message
+        // this.showToast = true;
+        // this.toastMessage = res?.message;
+        // this.toastType = 'success';
+
+        this.toastService.setToastInfo({showToast: true, toastMessage: res?.message, toastType: 'success'});
+
         this.showRegisterLoader = false;
-        this.toastType = 'success';
+        this.router.navigate(['login']);
       },
       error: (err:any)=>{
         console.log('error -- -- -- - ',err)
