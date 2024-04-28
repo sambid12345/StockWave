@@ -1,10 +1,10 @@
 <div class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50" ></div>
 
-<div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded shadow-lg z-50">
+<div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded shadow-lg z-50 w-80">
 
   <!-- Modal header -->
-  <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-    <h3 class="text-xl font-semibold text-gray-900">
+  <div class="flex justify-center p-2 md:p-2 border-b rounded-t">
+    <h3 class="text-xl text-center font-semibold text-gray-900">
         {{headerMessage}}
     </h3>
     <button type="button" (click)="closeModal()" 
@@ -17,17 +17,29 @@
   </div>
 
   <!-- Modal body -->
-  <div *ngIf="showModalBody" class="p-4 md:p-5 space-y-4">
+  <div *ngIf="showModalBody" class="p-2 md:p-2 space-y-4">
     <p class="text-base leading-relaxed text-gray-500">
-        With less than a month to go before the European Union enacts.
+        {{showBodyContent}}
     </p>
+
+    <div [formGroup]="modalForm" class="">
+        
+        <div class="mt-4" *ngFor="let frmCtrl of formCtrlInfo">
+            <!-- {{modalForm.get(frmCtrl.formControlName)?.valid}} -->
+
+            <!-- {{modalForm.get(frmCtrl.formControlName)?.touched}} -->
+            <input [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
+            [formControlName]='frmCtrl.formControlName' type="text" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+        </div>
+    </div>
     
    </div>
 
    <!-- Modal footer -->
-   <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b ">
+   <div *ngIf="footerButtons.length > 0" class="flex items-center p-2 md:p-2 border-t border-gray-200 rounded-b ">
     <ng-container *ngFor="let btn of footerButtons">
-        <button (click)="closeModal()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+        <button (click)="closeModal()" [style.width.%]="100/footerButtons.length"
+        type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
             {{btn.buttonName}}
         </button>
     </ng-container>

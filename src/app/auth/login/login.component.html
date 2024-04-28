@@ -30,6 +30,9 @@
                 Invalid !
             </span>
         </div>
+        <div >
+            <span (click)="forgotPassword()" class="text-blue-500 hover:underline cursor-pointer"> Forgot Password </span>
+        </div>
 
         <button *ngIf="!showLoginLoader" [disabled]="!loginForm.valid" (click)="onLogin()" class="w-[100%] py-2 rounded-md mt-8" [ngClass]="loginForm.valid ? 'bg-[#262626] text-white cursor-pointer' : 'text-gray-800 bg-[#cccccc] cursor-not-allowed'">
             Login

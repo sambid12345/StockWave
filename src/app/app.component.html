@@ -1,8 +1,11 @@
 <app-toast *ngIf='showToast' [message]="toastMessage" [type]="toastType" (onClose)="hideToast()"></app-toast>
 <app-modal *ngIf="showModal" 
-    (onModalClose)="onCloseModal()"
+    (onModalClose)="onCloseModal($event)"
     [headerMessage]="modalTitleMsg"
     [showModalBody]="showModalBody"
+    [showBodyContent]="bodyContent"
+    [hasAnyForm]="hasFormControls"
+    [formCtrlInfo]="formControlInfo"
     [footerButtons]="modalFooterBtns"
     >
 </app-modal>

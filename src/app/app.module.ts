@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ModalComponent } from './shared/components/modal/modal.component';
     RegisterComponent,
     ToastComponent,
     HomeComponent,
-    ModalComponent
+    ModalComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -96,4 +96,27 @@ export class LoginComponent implements OnInit{
     this.router.navigate([path])
   }
 
+  forgotPassword(){
+    this.modalService.setModalInfo({
+      showModal: true,
+      taskOnCloseModal: ()=>{
+      },
+      titleMessage: 'Forgot Password',
+      showBody: true,
+      modalBodyContent: 'Enter Your Email Address',
+      isFormControl: true,
+      formControlInfo: [{
+        formControlName: 'email',
+        isRequired: true,
+        type: 'input'
+      }],
+      footerButtons: [
+        {
+          buttonType: 'primary',
+          buttonName: 'Continue'
+        }
+      ] 
+    })
+  }
+
 }

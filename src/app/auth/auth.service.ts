@@ -30,4 +30,8 @@ export class AuthService {
         }
         return false;
     }
+    forgotPassword( email: string ){
+        let url = `${environment.baseUrl}users/forgot-password`;
+        return this.http.post(url, {email});
+    }
 }
