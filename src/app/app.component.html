@@ -1,2 +1,9 @@
 <app-toast *ngIf='showToast' [message]="toastMessage" [type]="toastType" (onClose)="hideToast()"></app-toast>
+<app-modal *ngIf="showModal" 
+    (onModalClose)="onCloseModal()"
+    [headerMessage]="modalTitleMsg"
+    [showModalBody]="showModalBody"
+    [footerButtons]="modalFooterBtns"
+    >
+</app-modal>
 <router-outlet></router-outlet>

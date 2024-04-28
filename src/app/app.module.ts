@@ -9,7 +9,7 @@ import { ToastComponent } from './shared/components/toast/toast.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { WarningComponent } from './shared/components/warning/warning.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { WarningComponent } from './shared/components/warning/warning.component'
     RegisterComponent,
     ToastComponent,
     HomeComponent,
-    WarningComponent
+    ModalComponent
   ],
   imports: [
     BrowserModule,

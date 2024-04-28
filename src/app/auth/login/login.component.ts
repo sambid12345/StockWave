@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/components/toast/toast-service.service';
+import { ModalService } from 'src/app/shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,13 @@ export class LoginComponent implements OnInit{
   passwordType:string = 'password';
   loginForm!:FormGroup;
   showLoginLoader:boolean = false;
-  showToast:boolean = false;
-  toastMessage:string = 'from login';
-  toastType:string = 'success';
 
   constructor(
     private fb:FormBuilder,
     private authService:AuthService,
     private router:Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private modalService : ModalService
   ){}
 
   ngOnInit(): void {
@@ -50,32 +49,22 @@ export class LoginComponent implements OnInit{
     if(this.loginForm.valid){
       this.authService.userLogin(this.loginForm.value).subscribe({
         next: (res:any)=>{
-
-          // this.showToast = true;
-          // this.toastMessage = 'Login Successful!';
-          // this.toastType = 'success';
-
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
-
           this.showLoginLoader = false;
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
-          localStorage.setItem('expiresIn', '20000'); // expiresIn: 20 sec
+          localStorage.setItem('expiresIn', res.tokenExpiration.toString()); 
           this.router.navigate(['home']);
           setTimeout(()=>{
-            localStorage.removeItem("authToken");
-            localStorage.removeItem('loggeinTimestamp');
-            localStorage.removeItem('expiresIn')
-            this.router.navigate(['login']);
-          }, 20000);
+            this.autoLogout();
+          }, res.tokenExpiration);
         },
         error: (err:any)=>{
           console.log('error -- -- -- - ',err)
-          this.showToast = true;
-          this.toastMessage = err.error.message ? err.error.message : 'Something went wrong !!';
+          this.toastService.setToastInfo({showToast: true, toastMessage: err.error.message ? err.error.message : 'Something went wrong !!', 
+          toastType: 'error'});
           this.showLoginLoader = false;
-          this.toastType = 'error';
         }
       })
     }else{
@@ -83,8 +72,24 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  hideToast(){
-    this.showToast = false;
+  autoLogout(){
+    this.modalService.setModalInfo({
+      showModal: true,
+      taskOnCloseModal: ()=>{
+        localStorage.removeItem("authToken");
+        localStorage.removeItem('loggeinTimestamp');
+        localStorage.removeItem('expiresIn');
+        this.router.navigate(['login']);
+      },
+      titleMessage: 'You are about to Logout !',
+      showBody: false,
+      footerButtons: [
+        {
+          buttonType: 'primary',
+          buttonName: 'OK'
+        }
+      ] 
+    })
   }
 
   navigateTo(path:string){
