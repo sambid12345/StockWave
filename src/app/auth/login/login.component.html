@@ -6,15 +6,17 @@
         </div>
         <div class="mt-4">
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Email :</label>
-            <input [ngClass]="loginForm.get('email')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'" formControlName="email" type="text" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+            <input [ngClass]="!loginForm.get('email')?.valid && loginForm.get('email')?.touched ? 'border-red-700 focus:border-red-700' : 'border-gray-300 focus:border-black'" 
+            formControlName="email" type="text" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
         </div>
-        <span *ngIf="!loginForm.get('email')?.valid" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
+        <span *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
 			Invalid !
 		</span>
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Password :</label>
             <div class="relative">
-                <input formControlName="password" [type]="passwordType" [ngClass]="loginForm.get('password')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"/>
+                <input formControlName="password" [type]="passwordType" 
+                [ngClass]="!loginForm.get('password')?.valid && loginForm.get('password')?.touched ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black'" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"/>
                 <span
                 class="absolute inset-y-0 end-0 grid w-10 place-content-center text-gray-500"
                 >
@@ -26,7 +28,7 @@
                 </button>
                 </span>
             </div>
-            <span *ngIf="!loginForm.get('password')?.valid" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
+            <span *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
                 Invalid !
             </span>
         </div>

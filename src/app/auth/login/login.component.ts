@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit{
     this.checkLoggedinStatus();
 
      this.loginForm = this.fb.group({
-      email:['sam@gmail.com',[Validators.required,Validators.email]],
-      password:['Sam@12345',Validators.required]
+      email:['',[Validators.required,Validators.email]],
+      password:['',Validators.required]
      });
   }
 

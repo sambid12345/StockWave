@@ -66,13 +66,16 @@ export class AppComponent implements OnInit{
   onCloseModal(value: any){
     console.log('val received from modal', value);
     if(this.hasFormControls && value){
-      this.authService.forgotPassword(value).subscribe((response: any)=>{
-        if(response){
-          this.toastService.setToastInfo({showToast: true, toastMessage: response.message?response.message:'', toastType: 'success'});
-        }else{
-          this.toastService.setToastInfo({showToast: true, toastMessage: 'error occured', toastType: 'failure'});
+      this.authService.forgotPassword(value).subscribe({
+        next: (response: any)=>{
+          // console.log('response--', response);
+          this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
+        },
+        error: (error)=>{
+          // console.log('eror----', error);
+          this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
         }
-      })
+      });
     }
     this.showModal = false;
     this.taskToBeDoneOnClose();

@@ -6,25 +6,27 @@
         </div>
         <div class="mt-4">
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Email :</label>
-            <input formControlName="email" type="text" [ngClass]="registerForm.get('email')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'"
+            <input formControlName="email" type="text" 
+            [ngClass]="!registerForm.get('email')?.valid && registerForm.get('email')?.touched ? 'border-red-700 focus:border-red-700' : 'border-gray-300 focus:border-black'"
             class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
         </div>
-        <span *ngIf="!registerForm.get('email')?.valid" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
+        <span *ngIf="!registerForm.get('email')?.valid && registerForm.get('email')?.touched" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
 			Invalid !
 		</span>
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Name :</label>
-            <input formControlName="username" type="text" [ngClass]="registerForm.get('username')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'"
+            <input formControlName="username" type="text" 
+            [ngClass]="!registerForm.get('username')?.valid && registerForm.get('username')?.touched ? 'border-red-700 focus:border-red-700' : 'border-gray-300 focus:border-black'"
             class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
         </div>
-        <span *ngIf="!registerForm.get('username')?.valid" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
+        <span *ngIf="!registerForm.get('username')?.valid && registerForm.get('username')?.touched" class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1">
 			Invalid !
 		</span>
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Password :</label>
             <div class="relative">
                 <input formControlName="password" [type]="passwordType" 
-                [ngClass]="registerForm.get('password')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'"
+                [ngClass]="!registerForm.get('password')?.valid && registerForm.get('password')?.touched ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black'"
                 class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"/>
                
                 <span class="absolute top-3 end-0 grid w-10 place-content-center text-gray-500">
@@ -47,7 +49,7 @@
             <label class="block mb-2 text-sm font-medium text-gray-600 ">Confirm Password :</label>
             <div class="relative">
                 <input formControlName="rePassword" [type]="confirmPassType"
-                [ngClass]="registerForm.get('rePassword')?.valid ? 'border-gray-300 focus:border-black': 'border-red-700 focus:border-red-700'"
+                [ngClass]="!registerForm.get('rePassword')?.valid && registerForm.get('rePassword')?.touched ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black'"
                 class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"/>
 
                 <span class="absolute top-3 end-0 grid w-10 place-content-center text-gray-500">
@@ -58,7 +60,6 @@
                         </svg>
                     </button>
                 </span>
-
             </div>
             <span *ngIf="registerForm.get('rePassword')?.hasError('mismatched') && registerForm.get('rePassword')?.touched" 
             class="text-red-500">

@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     ToastComponent,
     HomeComponent,
     ModalComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ToastService } from 'src/app/shared/components/toast/toast-service.service';
+import  AuthValidator  from 'src/app/shared/validators/auth.validator';
 
 @Component({
   selector: 'app-register',
@@ -29,50 +30,34 @@ export class RegisterComponent implements OnInit{
     private toastService: ToastService
   ){}
   ngOnInit(): void {
-
+    this.initiateRegisterForm();
+  }
+  initiateRegisterForm(){
     this.registerForm = this.fb.group({
-      
-      email:['sam@gmail.com',[Validators.required, Validators.email]],
+      email:['',[Validators.required, Validators.email]],
       username:['',[Validators.required]],
-      password:['',[Validators.required, this.passwordStrengthValidator.bind(this)]],
+      password:['',[Validators.required, AuthValidator.passwordStrengthValidator(this)]],
       rePassword:['',[Validators.required]],
       role: ['user']
-     }, {validators: this.passwordMatchValidator});
+     }, 
+     {validators:AuthValidator.passwordMatchValidator} as  AbstractControlOptions
+    );
   }
 
   onRegister(){
-    console.log('register form value -- ',this.registerForm.value);
+    // console.log('register form value -- ',this.registerForm.value);
     this.authService.userSignup(this.registerForm.value).subscribe({
       next: (res:any)=>{
-        // this.showToast = true;
-        // this.toastMessage = res?.message;
-        // this.toastType = 'success';
-
-        this.toastService.setToastInfo({showToast: true, toastMessage: res?.message, toastType: 'success'});
-
+        this.toastService.setToastInfo({showToast: true, toastMessage: res?.message || 'Registered Successfully!', toastType: 'success'});
         this.showRegisterLoader = false;
         this.router.navigate(['login']);
       },
       error: (err:any)=>{
-        console.log('error -- -- -- - ',err)
-        this.showToast = true;
-        this.toastMessage = err?.error?.message ?? 'Something went wrong !!';
-        this.showRegisterLoader = false;
-        this.toastType = 'error';
+        // console.log('error -- -- -- - ',err);
+        this.toastService.setToastInfo({showToast: true, toastMessage: err?.error?.message || 'Something went wrong !', toastType: 'error'});
+        this.showRegisterLoader = false; 
       }
     })
-  }
-
-  passwordMatchValidator(registrationFrm: FormGroup){
-    // console.log('registration form', registrationFrm);
-    let password = registrationFrm.get('password');
-    let confirmPassword = registrationFrm.get('rePassword');
-
-    if(password?.value != confirmPassword?.value){
-      confirmPassword?.setErrors({mismatched: true})
-    }else{
-      confirmPassword?.setErrors(null)
-    }
   }
 
   navigateTo(path:string){
@@ -80,29 +65,6 @@ export class RegisterComponent implements OnInit{
   }
   hideToast(){
     this.showToast = false;
-  }
-
-  passwordStrengthValidator (control: AbstractControl) {
-    const value = control.value;
-
-    // console.log('value', value);
-    
-    const minLength = 6;
-    const hasUppercase = /[A-Z]/.test(value);
-    const hasLowercase = /[a-z]/.test(value);
-    const hasNumber = /\d/.test(value);
-    const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value);
-
-    let score = 0;
-    if (value.length >= minLength) score++;
-    if (hasUppercase) score++;
-    if (hasLowercase) score++;
-    if (hasNumber) score++;
-    if (hasSpecialChar) score++;
-
-    this.strengthScore = score * 20; // Convert score to percentage
-
-    return score >= 4 ? null : { invalidPassword: true };
   }
   getStrengthBarStyle(){
     let backgroundColor = '';
