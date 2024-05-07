@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit{
     this.checkLoggedinStatus();
 
      this.loginForm = this.fb.group({
-      email:['',[Validators.required,Validators.email]],
-      password:['',Validators.required]
+      email:['sambidchampati1998@gmail.com',[Validators.required,Validators.email]],
+      password:['Sambid@12345',Validators.required]
      });
   }
 
@@ -51,14 +51,16 @@ export class LoginComponent implements OnInit{
         next: (res:any)=>{
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
           this.showLoginLoader = false;
+          // let tokenExpirationTime = res.tokenExpiration;
+          let tokenExpirationTime = 3600000; // 1Hr
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
-          localStorage.setItem('expiresIn', res.tokenExpiration.toString()); 
+          localStorage.setItem('expiresIn', tokenExpirationTime.toString()); 
           this.router.navigate(['home']);
           setTimeout(()=>{
             this.autoLogout();
-          }, res.tokenExpiration);
+          }, tokenExpirationTime);
         },
         error: (err:any)=>{
           console.log('error -- -- -- - ',err)
