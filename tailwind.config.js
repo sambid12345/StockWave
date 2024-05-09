@@ -11,14 +11,14 @@ module.exports = {
         bgColorSidebar: "var(--color-background-sidebar)",
         baseBgCol: "var(--color-background-base)",
         buttonPrimary: "var(--color-button-primary)",
-        cardBgPrimary: "var(--color-button-primary)",
+        cardBgPrimary: "var(--color-background-card)",
         btnPrimaryHover:"var(--color-btn-primary-hover)",
+        btnSecondaryHover: "var(--color-btn-secondary-hover)",
         headerCol: "var(--color-header)",
-        primaryTextCol: "var(--color-primary-text)",
-        secondaryTextCol : "var(--color-secondary-text)",
-        secondaryBadgeCol: "var(--color-badge-secondary)",
-
         textColPrimary: "var(--color-text-primary)",
+        textColSecondary : "var(--color-text-secondary)",
+        secondaryBadgeCol: "var(--color-badge-secondary)",
+        iconFillCol: "var(--color-icon-fill)"
       }
     },
   //   fontFamily: {

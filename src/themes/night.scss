@@ -1,14 +1,15 @@
 /* night.scss */
 
 html[data-theme="night"] {
-  --color-background-sidebar : #0e1526;
-  --color-background-base: 
-  --color-button-primary:
-  --color-btn-primary-hover:
+  --color-background-sidebar : #142244;
+  --color-background-base: #0c1322;
+  --color-button-primary: #0e6d97;
+  --color-btn-primary-hover: #14739d;
+  --color-btn-secondary-hover: #7990cb;
   --color-header: #1e293b;
-  --color-primary-text:
-  --color-secondary-text:
-  --color-badge-secondary:
-
-  --color-text-primary:
+  --color-background-card: #125668;
+  --color-text-primary: #b5cdf5;
+  --color-text-secondary: #b5cdf5;
+  --color-badge-secondary: #818cf8;  
+  --color-icon-fill: #b5cdf5;
 }
