@@ -24,6 +24,12 @@ export class ProfileComponent implements OnInit{
           titleColor: '#90a389',
           bgColor: '#142244',
           colorPalette: ['#0c1322', '#142244', '#0e6d97', '#1e293b'] 
+        },
+        {
+          name: 'retro',
+          titleColor: '#090700',
+          bgColor: '#73632e',
+          colorPalette: ['#d2c59d', '#e5a19e', '#d26560', '#090700'] 
         }
       ]
   }
