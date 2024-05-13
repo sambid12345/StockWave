@@ -100,10 +100,10 @@
    </div> -->
 
    <!-- main section -->
-   <div class="overflow-y-auto w-full md:w-5/6 flex flex-col">
+   <div class="overflow-y-hidden w-full flex flex-col">
 
       <!-- top header -->
-      <div class="h-[12%] top-0 fixed z-[99] shadow-lg w-full flex flex-row items-center md:hidden bg-gray-600 ">  
+      <div class="h-[12%] z-[99] shadow-lg w-full flex flex-row items-center md:hidden bg-gray-600 ">  
          <button id="hamBurgerBtn" *ngIf="showMenu" type="button" (click)="toggleSidebar($event)"
             class=" md:hidden lg:hidden inline-flex items-center p-2 mt-1 ml-1 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"> 
             <svg class="w-5 h-5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
@@ -113,13 +113,13 @@
       </div>
 
       <!-- Body section -->
-      <div (click)="closeSideBar()" class=" h-[88%] md:h-[100%] flex flex-col gap-6 p-5">
+      <div (click)="closeSideBar()" class=" overflow-y-auto h-[88%] md:h-[100%] flex flex-col gap-6 p-5">
 
          <!-- Quick Statistics  -->
          <section>
             <h3 class="flex gap-2 items-center mb-3 pl-1 text-lg text-textColSecondary"> Quick Statistics </h3>
-            <div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
-               <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10]" 
+            <div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
+               <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17,18, 19, 20]" 
                class="items-center bg-cardBgPrimary rounded-md shadow-md flex flex-col gap-1 p-3 text-textColSecondary">
                   <p>Total value</p>
                   <p>100$</p>

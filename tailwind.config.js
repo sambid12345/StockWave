@@ -11,6 +11,7 @@ module.exports = {
         bgColorSidebar: "var(--color-background-sidebar)",
         baseBgCol: "var(--color-background-base)",
         buttonPrimary: "var(--color-button-primary)",
+        buttonSecondary: "var(--color-btn-secondary)",
         cardBgPrimary: "var(--color-background-card)",
         btnPrimaryHover:"var(--color-btn-primary-hover)",
         btnSecondaryHover: "var(--color-btn-secondary-hover)",
