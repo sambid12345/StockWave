@@ -1,4 +1,4 @@
-import { Component, OnInit, enableProdMode } from '@angular/core';
+import { AfterViewChecked, Component, OnChanges, OnInit, enableProdMode } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { ToastService } from './shared/components/toast/toast-service.service';
 import { ModalService } from './shared/components/modal/modal.service';
@@ -9,7 +9,7 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewChecked{
   title = 'StockWave';
   showToast: boolean = false;
   toastMessage: string = '';
@@ -36,6 +36,15 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.initilizeToastService();
     this.initilizeModalService();
+  }
+
+  ngAfterViewChecked(){
+    let themeName = localStorage.getItem('theme');
+    if(themeName){
+      document.querySelector('html')?.setAttribute('data-theme', themeName);
+    }else{
+      document.querySelector('html')?.setAttribute('data-theme', 'default');
+    }
   }
   initilizeToastService(){
     this.toastService.getToastInfo().subscribe((toastInfo: any)=>{
@@ -64,15 +73,12 @@ export class AppComponent implements OnInit{
     this.showToast = false;
   }
   onCloseModal(value: any){
-    console.log('val received from modal', value);
     if(this.hasFormControls && value){
       this.authService.forgotPassword(value).subscribe({
         next: (response: any)=>{
-          // console.log('response--', response);
           this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
         },
         error: (error)=>{
-          // console.log('eror----', error);
           this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
         }
       });
