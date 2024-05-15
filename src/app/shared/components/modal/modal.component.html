@@ -22,13 +22,13 @@
         {{showBodyContent}}
     </p>
 
-    <div [formGroup]="modalForm" class="">
+    <div *ngIf="hasAnyForm" [formGroup]="modalForm" class="">
         
         <div class="mt-4" *ngFor="let frmCtrl of formCtrlInfo">
             <!-- {{modalForm.get(frmCtrl.formControlName)?.valid}} -->
 
             <!-- {{modalForm.get(frmCtrl.formControlName)?.touched}} -->
-            <input [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
+            <input [placeholder]="frmCtrl.placeHolder" [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
             [formControlName]='frmCtrl.formControlName' type="text" class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
         </div>
     </div>
@@ -38,7 +38,7 @@
    <!-- Modal footer -->
    <div *ngIf="footerButtons.length > 0" class="flex items-center p-2 md:p-2 border-t border-gray-200 rounded-b ">
     <ng-container *ngFor="let btn of footerButtons">
-        <button (click)="closeModal()" [style.width.%]="100/footerButtons.length"
+        <button [id]="btn.buttonId" (click)="closeModal(btn.buttonId)" [style.width.%]="100/footerButtons.length"
         type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
             {{btn.buttonName}}
         </button>

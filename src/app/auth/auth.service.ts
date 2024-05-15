@@ -19,6 +19,10 @@ export class AuthService {
         return this.http.post(url,userCred)
     }
 
+    userSignout(){
+        
+    }
+
     userSignup(userCred: any){
         let url = `${environment.baseUrl}users/signup`;
         return this.http.post(url,userCred)
@@ -37,5 +41,10 @@ export class AuthService {
     resetPassword(passwordInfo: any){
         let url = `${environment.baseUrl}users/reset-password`;
         return this.http.put(url, passwordInfo);
+    }
+
+    changePassword(userInfo : any){
+        let url = `${environment.baseUrl}users/change-password`;
+        return this.http.put(url, userInfo);
     }
 }

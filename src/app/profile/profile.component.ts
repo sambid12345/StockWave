@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from '../shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit{
   showMenu: boolean = true;
   themeArray: any = [];
-  constructor(){
+  constructor(private modalService: ModalService){
 
   }
   ngOnInit(): void {
@@ -36,6 +37,42 @@ export class ProfileComponent implements OnInit{
   changeTheme(themeName: string){
     document.querySelector('html')?.setAttribute('data-theme', themeName);
     localStorage.setItem('theme', themeName);
+  }
+
+  changePassword(){
+    this.modalService.setModalInfo({
+      showModal: true,
+      popupName: 'changePassword',
+      titleMessage: 'Change Password',
+      showBody: true,
+      modalBodyContent: 'Enter Your Credentials',
+      isFormControl: true,
+      formControlInfo: [{
+        formControlName: 'usermail',
+        placeHolder: 'Enter email address',
+        isRequired: true,
+        type: 'input'
+      },
+      {
+        formControlName: 'currentPassword',
+        placeHolder: 'Enter Current Password',
+        isRequired: true,
+        type: 'input'
+      },
+      {
+        formControlName: 'newPassword',
+        placeHolder: 'Enter New Password',
+        isRequired: true,
+        type: 'input'
+      }],
+      footerButtons: [
+        {
+          buttonType: 'primary',
+          buttonName: 'Change Password',
+          buttonId: 'changePassBtn'
+        }
+      ]
+    });
   }
 
   toggleSidebar(event: Event) {

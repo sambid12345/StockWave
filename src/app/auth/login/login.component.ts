@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
@@ -13,9 +13,18 @@ import { ModalService } from 'src/app/shared/components/modal/modal.service';
 })
 export class LoginComponent implements OnInit{
 
+
   passwordType:string = 'password';
   loginForm!:FormGroup;
   showLoginLoader:boolean = false;
+
+  showModal = false;
+  modalTitleMsg = '';
+  showModalBody = false;
+  bodyContent = '';
+  hasFormControls = false;
+  formControlInfo: any;
+  modalFooterBtns: any;
 
   constructor(
     private fb:FormBuilder,
@@ -51,8 +60,8 @@ export class LoginComponent implements OnInit{
         next: (res:any)=>{
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
           this.showLoginLoader = false;
-          // let tokenExpirationTime = res.tokenExpiration;
-          let tokenExpirationTime = 3600000; // 1Hr
+          let tokenExpirationTime = res.tokenExpiration;
+          // let tokenExpirationTime = 3600000; // 1Hr
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
@@ -75,20 +84,18 @@ export class LoginComponent implements OnInit{
   }
 
   autoLogout(){
+    console.log('inside autologout');
+    
     this.modalService.setModalInfo({
       showModal: true,
-      taskOnCloseModal: ()=>{
-        localStorage.removeItem("authToken");
-        localStorage.removeItem('loggeinTimestamp');
-        localStorage.removeItem('expiresIn');
-        this.router.navigate(['login']);
-      },
+      popupName: 'autoLogout',
       titleMessage: 'You are about to Logout !',
       showBody: false,
       footerButtons: [
         {
           buttonType: 'primary',
-          buttonName: 'OK'
+          buttonName: 'OK',
+          buttonId: 'autoLogoutOk'
         }
       ] 
     })
@@ -101,8 +108,7 @@ export class LoginComponent implements OnInit{
   forgotPassword(){
     this.modalService.setModalInfo({
       showModal: true,
-      taskOnCloseModal: ()=>{
-      },
+      popupName: 'forgotPassword',
       titleMessage: 'Forgot Password',
       showBody: true,
       modalBodyContent: 'Enter Your Email Address',
@@ -115,10 +121,23 @@ export class LoginComponent implements OnInit{
       footerButtons: [
         {
           buttonType: 'primary',
-          buttonName: 'Continue'
+          buttonName: 'Continue',
+          buttonId: 'forgotPassContinue'
         }
-      ] 
-    })
+      ]
+    });
+  }
+  onCloseModal(value: any){
+    if(this.hasFormControls && value){
+      this.authService.forgotPassword(value).subscribe({
+        next: (response: any)=>{
+          this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
+        },
+        error: (error)=>{
+          this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
+        }
+      });
+    }
   }
 
 }

@@ -4,7 +4,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -21,9 +20,6 @@ const routes: Routes = [
     },
     {
       path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]
-    },
-    {
-      path: 'forgot-password', component: ForgotPasswordComponent
     },
     {
       path: 'password-reset/:userName/:token', component: PasswordResetComponent

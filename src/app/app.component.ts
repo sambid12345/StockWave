@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
   toastType: string = '';
 
   showModal: boolean = false;
+  popupName: any;
   modalTitleMsg: string = '';
   showModalBody: boolean = false;
   bodyContent: string = '';
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
   hasFormControls: boolean = false;
   formControlInfo: any
   modalFooterBtns: any;
-  taskToBeDoneOnClose: any;
+  // taskToBeDoneOnClose: any;
 
   constructor(private toastService: ToastService,
     private modalService: ModalService,
@@ -57,6 +58,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
     this.modalService.getModalInfo().subscribe((modalInfo: any)=>{
 
       this.showModal = modalInfo.showModal;
+      this.popupName = modalInfo.popupName;
       this.modalTitleMsg = modalInfo.titleMessage;
       this.showModalBody = modalInfo.showBody;
       this.bodyContent = modalInfo.showBody? modalInfo.modalBodyContent: '';
@@ -66,24 +68,63 @@ export class AppComponent implements OnInit, AfterViewChecked{
 
       this.modalFooterBtns = modalInfo.footerButtons;
 
-      this.taskToBeDoneOnClose = modalInfo.taskOnCloseModal;
+      // this.taskToBeDoneOnClose = modalInfo.taskOnCloseModal;
     })
   }
   hideToast(){
     this.showToast = false;
   }
   onCloseModal(value: any){
-    if(this.hasFormControls && value){
-      this.authService.forgotPassword(value).subscribe({
-        next: (response: any)=>{
-          this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
-        },
-        error: (error)=>{
-          this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
+      if(this.popupName === 'forgotPassword'){
+        if(this.hasFormControls && value){
+          this.authService.forgotPassword(value).subscribe({
+            next: (response: any)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
+            },
+            error: (error)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
+            }
+          });
         }
-      });
-    }
-    this.showModal = false;
-    this.taskToBeDoneOnClose();
+        
+      }else if(this.popupName === 'changePassword'){
+        if(this.hasFormControls && value){
+          this.authService.changePassword(value).subscribe({
+            next: (response: any)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
+              
+                localStorage.removeItem("authToken");
+                localStorage.removeItem('loggeinTimestamp');
+                localStorage.removeItem('expiresIn');
+                this.router.navigate(['login']);
+             
+            },
+            error: (error)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
+            }
+          })
+        }
+        
+      }else if(this.popupName === 'manualLogout'){
+        if(value && value?.manualLogout){
+          localStorage.removeItem("authToken");
+          localStorage.removeItem('loggeinTimestamp');
+          localStorage.removeItem('expiresIn');
+          this.router.navigate(['login']);
+        }
+      }
+    this.resetModalPopupProperties();
   }
+
+  resetModalPopupProperties(){
+    this.showModal = false;
+    this.popupName = null;
+    this.modalTitleMsg = '';
+    this.showModalBody = false;
+    this.bodyContent = '';
+    this.hasFormControls = false;
+    this.formControlInfo = null
+    this.modalFooterBtns = null;
+  }
+
 }
