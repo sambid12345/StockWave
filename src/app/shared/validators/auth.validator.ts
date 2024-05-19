@@ -1,11 +1,12 @@
 import { AbstractControl, FormGroup, ValidatorFn } from "@angular/forms";
 
 
-const passwordStrengthValidator = function(params : any): ValidatorFn{
+const passwordStrengthValidator = function(params?: any): ValidatorFn{
 
     return (control: AbstractControl)=>{
+        console.log('control inside auth validator', control);
         const value = control.value;
-
+        console.log('value', value);
     
         const minLength = 6;
         const hasUppercase = /[A-Z]/.test(value);
@@ -20,7 +21,8 @@ const passwordStrengthValidator = function(params : any): ValidatorFn{
         if (hasNumber) score++;
         if (hasSpecialChar) score++;
 
-        params.strengthScore = score * 20; // Convert score to percentage
+        if(params)
+          params.strengthScore = score * 20; // Convert score to percentage
 
         return score >= 4 ? null : { invalidPassword: true };
     }

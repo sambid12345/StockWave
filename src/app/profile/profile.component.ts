@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../shared/components/modal/modal.service';
+import { Validators } from '@angular/forms';
+import AuthValidator from '../shared/validators/auth.validator';
 
 @Component({
   selector: 'app-profile',
@@ -44,32 +46,44 @@ export class ProfileComponent implements OnInit{
       showModal: true,
       popupName: 'changePassword',
       titleMessage: 'Change Password',
+      titleDescription: '',
       showBody: true,
       modalBodyContent: 'Enter Your Credentials',
       isFormControl: true,
       formControlInfo: [{
         formControlName: 'usermail',
+        validations: [Validators.required, Validators.email],
+        defaultValue: '',
         placeHolder: 'Enter email address',
         isRequired: true,
-        type: 'input'
+        type: 'email'
       },
       {
         formControlName: 'currentPassword',
+        validations: [Validators.required],
         placeHolder: 'Enter Current Password',
         isRequired: true,
-        type: 'input'
+        type: 'password'
       },
       {
         formControlName: 'newPassword',
+        // AuthValidator.passwordStrengthValidator()
+        // validations: [Validators.required, ],
         placeHolder: 'Enter New Password',
         isRequired: true,
-        type: 'input'
+        type: 'password'
       }],
+     
       footerButtons: [
         {
-          buttonType: 'primary',
+          buttonType: 'submit',
           buttonName: 'Change Password',
           buttonId: 'changePassBtn'
+        },
+        {
+          buttonType: 'cancel',
+          buttonName: 'Cancel',
+          buttonId: 'cancelBtn'
         }
       ]
     });

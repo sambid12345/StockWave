@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit{
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
           this.showLoginLoader = false;
           let tokenExpirationTime = res.tokenExpiration;
-          // let tokenExpirationTime = 3600000; // 1Hr
+          // let tokenExpirationTime = 5000; 
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit{
       showModal: true,
       popupName: 'autoLogout',
       titleMessage: 'You are about to Logout !',
+      titleDescription: 'Token expired, Please Login again!',
       showBody: false,
       footerButtons: [
         {
@@ -109,20 +110,29 @@ export class LoginComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'forgotPassword',
-      titleMessage: 'Forgot Password',
+      titleMessage: 'Forgot Your Password?',
+      titleDescription: `We'll email you a link to reset your password`,
       showBody: true,
-      modalBodyContent: 'Enter Your Email Address',
+      modalBodyContent: null,
       isFormControl: true,
       formControlInfo: [{
         formControlName: 'email',
+        validations: [Validators.required, Validators.email],
+        defaultValue: '',
+        placeHolder: 'Enter Email',
         isRequired: true,
-        type: 'input'
+        type: 'email'
       }],
       footerButtons: [
         {
-          buttonType: 'primary',
-          buttonName: 'Continue',
-          buttonId: 'forgotPassContinue'
+          buttonType: 'submit',
+          buttonName: 'Send password reset link',
+          buttonId: 'sendPassresetBtn'
+        },
+        {
+          buttonType: 'cancel',
+          buttonName: 'Cancel',
+          buttonId: 'cancelBtn'
         }
       ]
     });

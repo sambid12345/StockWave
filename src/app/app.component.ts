@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
   showModal: boolean = false;
   popupName: any;
   modalTitleMsg: string = '';
+  modalTitleDescription = '';
   showModalBody: boolean = false;
   bodyContent: string = '';
 
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
       this.showModal = modalInfo.showModal;
       this.popupName = modalInfo.popupName;
       this.modalTitleMsg = modalInfo.titleMessage;
+      this.modalTitleDescription = modalInfo.titleDescription;
       this.showModalBody = modalInfo.showBody;
       this.bodyContent = modalInfo.showBody? modalInfo.modalBodyContent: '';
 
@@ -120,6 +122,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
     this.showModal = false;
     this.popupName = null;
     this.modalTitleMsg = '';
+    this.modalTitleDescription = '';
     this.showModalBody = false;
     this.bodyContent = '';
     this.hasFormControls = false;

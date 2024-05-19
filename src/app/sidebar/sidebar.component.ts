@@ -19,18 +19,14 @@ export class SidebarComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'manualLogout',
-      titleMessage: 'Log out',
-      showBody: true,
-      modalBodyContent: 'You will be returned to the login screen',
+      titleMessage: 'Want to Log out?',
+      titleDescription: 'You will be returned to the login screen',
+      showBody: false,
+      modalBodyContent: '',
       isFormControl: false,
       footerButtons: [
         {
-          buttonType: 'primary',
-          buttonName: 'Cancel',
-          buttonId: 'cancelLogoutBtn'
-        },
-        {
-          buttonType: 'primary',
+          buttonType: '',
           buttonName: 'Logout',
           buttonId: 'manualLogoutBtn'
         }
