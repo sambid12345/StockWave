@@ -60,8 +60,11 @@ export class LoginComponent implements OnInit{
         next: (res:any)=>{
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
           this.showLoginLoader = false;
+
+          // Yet to be implemented
+          // this.authService.storeUserInfo(res?.userInfo);          
+
           let tokenExpirationTime = res.tokenExpiration;
-          // let tokenExpirationTime = 5000; 
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());

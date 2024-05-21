@@ -109,10 +109,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
         
       }else if(this.popupName === 'manualLogout'){
         if(value && value?.manualLogout){
-          localStorage.removeItem("authToken");
-          localStorage.removeItem('loggeinTimestamp');
-          localStorage.removeItem('expiresIn');
-          this.router.navigate(['login']);
+          this.authService.userSignout();
         }
       }
     this.resetModalPopupProperties();

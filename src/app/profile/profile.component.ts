@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../shared/components/modal/modal.service';
 import { Validators } from '@angular/forms';
 import AuthValidator from '../shared/validators/auth.validator';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,31 +12,40 @@ import AuthValidator from '../shared/validators/auth.validator';
 export class ProfileComponent implements OnInit{
   showMenu: boolean = true;
   themeArray: any = [];
-  constructor(private modalService: ModalService){
+  userInfo : any
+  constructor(private modalService: ModalService,
+    private authService: AuthService
+  ){
 
   }
   ngOnInit(): void {
-      this.themeArray = [
-        {
-          name: 'default',
-          titleColor: '#020302',
-          bgColor: '#90a389',
-          colorPalette: ['#cfcfcf', '#2c2e27', '#e6e6e6', '#ecf4e7'] 
-        },
-        {
-          name: 'night',
-          titleColor: '#90a389',
-          bgColor: '#142244',
-          colorPalette: ['#0c1322', '#142244', '#0e6d97', '#1e293b'] 
-        },
-        {
-          name: 'retro',
-          titleColor: '#090700',
-          bgColor: '#73632e',
-          colorPalette: ['#d2c59d', '#e5a19e', '#d26560', '#090700'] 
-        }
-      ]
+    this.getUserInfo();
+    
+    this.themeArray = [
+      {
+        name: 'default',
+        titleColor: '#020302',
+        bgColor: '#90a389',
+        colorPalette: ['#cfcfcf', '#2c2e27', '#e6e6e6', '#ecf4e7'] 
+      },
+      {
+        name: 'night',
+        titleColor: '#90a389',
+        bgColor: '#142244',
+        colorPalette: ['#0c1322', '#142244', '#0e6d97', '#1e293b'] 
+      },
+      {
+        name: 'retro',
+        titleColor: '#090700',
+        bgColor: '#73632e',
+        colorPalette: ['#d2c59d', '#e5a19e', '#d26560', '#090700'] 
+      }
+    ]
   }
+  getUserInfo(){
+    this.userInfo = this.authService.getUserInfo();
+    console.log('user Info', this.userInfo);
+  } 
   changeTheme(themeName: string){
     document.querySelector('html')?.setAttribute('data-theme', themeName);
     localStorage.setItem('theme', themeName);
