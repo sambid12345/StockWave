@@ -45,10 +45,11 @@ export class LoginComponent implements OnInit{
   }
 
   checkLoggedinStatus(){
+    console.log(this.authService.isLoggedin());
     if(this.authService.isLoggedin()){
-      this.router.navigate(['home'])
+      this.router.navigate(['user','home'])
     }else{
-      this.router.navigate(['login'])
+      this.router.navigate(['auth','login'])
     }
   }
 
@@ -69,7 +70,7 @@ export class LoginComponent implements OnInit{
           localStorage.setItem("authToken" , res.token);
           localStorage.setItem("loggeinTimestamp", new Date().getTime().toString());
           localStorage.setItem('expiresIn', tokenExpirationTime.toString()); 
-          this.router.navigate(['home']);
+          this.router.navigate(['user','home']);
           setTimeout(()=>{
             this.autoLogout();
           }, tokenExpirationTime);

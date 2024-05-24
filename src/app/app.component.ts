@@ -10,7 +10,7 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewChecked{
-  showMenu: boolean = true;
+
   title = 'StockWave';
   showToast: boolean = false;
   toastMessage: string = '';
@@ -26,37 +26,19 @@ export class AppComponent implements OnInit, AfterViewChecked{
   hasFormControls: boolean = false;
   formControlInfo: any
   modalFooterBtns: any;
-  // taskToBeDoneOnClose: any;
+
 
   constructor(private toastService: ToastService,
     private modalService: ModalService,
     private router: Router,
     private authService: AuthService
   ){
-    // console.log(isDevMode());
+
   }
 
   ngOnInit() {
     this.initilizeToastService();
     this.initilizeModalService();
-  }
-
-  toggleSidebar(event: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
-    console.log('clicked');
-    this.showMenu = !this.showMenu;
-    let sideBar = document.querySelector('#sidebar');
-    sideBar?.classList.toggle('hidden');
-  }
-  closeSideBar() {
-    let btn = document.querySelector('#hamBurgerBtn');
-    if (!btn) {
-      this.showMenu = !this.showMenu;
-      let sideBar = document.querySelector('#sidebar');
-      sideBar?.classList.toggle('hidden');
-    }
   }
 
   ngAfterViewChecked(){
@@ -89,7 +71,6 @@ export class AppComponent implements OnInit, AfterViewChecked{
 
       this.modalFooterBtns = modalInfo.footerButtons;
 
-      // this.taskToBeDoneOnClose = modalInfo.taskOnCloseModal;
     })
   }
   hideToast(){
@@ -117,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
                 localStorage.removeItem("authToken");
                 localStorage.removeItem('loggeinTimestamp');
                 localStorage.removeItem('expiresIn');
-                this.router.navigate(['login']);
+                this.router.navigate(['auth','login']);
              
             },
             error: (error)=>{

@@ -49,7 +49,7 @@ export class AuthService {
         localStorage.removeItem("authToken");
         localStorage.removeItem('loggeinTimestamp');
         localStorage.removeItem('expiresIn');
-        this.router.navigate(['login']);
+        this.router.navigate(['auth','login']);
     }
 
     userSignup(userCred: any){

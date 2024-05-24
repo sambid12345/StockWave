@@ -54,7 +54,7 @@ export class PasswordResetComponent implements OnInit{
       this.authService.resetPassword(resetPasswordInfo).subscribe({
         next: (response: any)=>{
           this.toastService.setToastInfo({showToast: true, toastMessage: response?.message ||'Reset password successful', toastType: 'success'});
-          this.router.navigate(['login']);
+          this.router.navigate(['auth','login']);
         },
         error: (error: any)=>{
           // console.log('error', error);

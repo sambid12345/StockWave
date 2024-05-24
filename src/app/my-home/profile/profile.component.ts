@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../shared/components/modal/modal.service';
+import { ModalService } from '../../shared/components/modal/modal.service';
 import { Validators } from '@angular/forms';
-import AuthValidator from '../shared/validators/auth.validator';
-import { AuthService } from '../auth/auth.service';
+import AuthValidator from '../../shared/validators/auth.validator';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-profile',

@@ -1,40 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ToastComponent } from './shared/components/toast/toast.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { ModalComponent } from './shared/components/modal/modal.component';
+import { SharedModule } from './shared/shared.module';
 
-import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    ToastComponent,
-    HomeComponent,
-    ModalComponent,
-    PasswordResetComponent,
-    SidebarComponent,
-    ProfileComponent,
-    ItemDetailComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

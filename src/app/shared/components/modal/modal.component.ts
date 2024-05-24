@@ -91,7 +91,7 @@ export class ModalComponent implements OnInit, OnChanges {
       localStorage.removeItem("authToken");
       localStorage.removeItem('loggeinTimestamp');
       localStorage.removeItem('expiresIn');
-      this.router.navigate(['login']);
+      this.router.navigate(['auth','login']);
       this.onModalClose.emit();
     }else if(this.modalName === 'forgotPassword'){
       if(btnId === 'sendPassresetBtn' && this.hasAnyForm && this.modalForm && this.modalForm.valid && this.modalForm.value){

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit{
       next: (res:any)=>{
         this.toastService.setToastInfo({showToast: true, toastMessage: res?.message || 'Registered Successfully!', toastType: 'success'});
         this.showRegisterLoader = false;
-        this.router.navigate(['login']);
+        this.router.navigate(['auth','login']);
       },
       error: (err:any)=>{
         // console.log('error -- -- -- - ',err);

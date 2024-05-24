@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { ModalService } from '../shared/components/modal/modal.service';
+import { AuthService } from '../../auth/auth.service';
+import { ModalService } from '../../shared/components/modal/modal.service';
 
 @Component({
   selector: 'app-sidebar',
