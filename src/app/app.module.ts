@@ -14,6 +14,7 @@ import { ModalComponent } from './shared/components/modal/modal.component';
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProfileComponent } from './profile/profile.component';
     ModalComponent,
     PasswordResetComponent,
     SidebarComponent,
-    ProfileComponent
+    ProfileComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,

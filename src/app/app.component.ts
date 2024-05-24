@@ -10,6 +10,7 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewChecked{
+  showMenu: boolean = true;
   title = 'StockWave';
   showToast: boolean = false;
   toastMessage: string = '';
@@ -38,6 +39,24 @@ export class AppComponent implements OnInit, AfterViewChecked{
   ngOnInit() {
     this.initilizeToastService();
     this.initilizeModalService();
+  }
+
+  toggleSidebar(event: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    console.log('clicked');
+    this.showMenu = !this.showMenu;
+    let sideBar = document.querySelector('#sidebar');
+    sideBar?.classList.toggle('hidden');
+  }
+  closeSideBar() {
+    let btn = document.querySelector('#hamBurgerBtn');
+    if (!btn) {
+      this.showMenu = !this.showMenu;
+      let sideBar = document.querySelector('#sidebar');
+      sideBar?.classList.toggle('hidden');
+    }
   }
 
   ngAfterViewChecked(){

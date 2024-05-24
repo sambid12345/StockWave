@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 const routes: Routes = [
   {path: '', component:  LoginComponent},
@@ -17,6 +18,11 @@ const routes: Routes = [
     },
     {
       path: 'home', component: HomeComponent, canActivate:[AuthGuard]
+    },
+    {
+      path: 'item/:itemId', 
+      component: ItemDetailComponent ,
+      canActivate:[AuthGuard]
     },
     {
       path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]

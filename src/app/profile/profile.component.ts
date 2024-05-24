@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit{
-  showMenu: boolean = true;
+
   themeArray: any = [];
   userInfo : any
   constructor(private modalService: ModalService,
@@ -99,20 +99,5 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  toggleSidebar(event: Event) {
-    if (event) {
-      event.stopPropagation();
-    }
-    this.showMenu = !this.showMenu;
-    let sideBar = document.querySelector('#sidebar');
-    sideBar?.classList.toggle('hidden');
-  }
-  closeSideBar() {
-    let btn = document.querySelector('#hamBurgerBtn');
-    if (!btn) {
-      this.showMenu = !this.showMenu;
-      let sideBar = document.querySelector('#sidebar');
-      sideBar?.classList.toggle('hidden');
-    }
-  }
+ 
 }
