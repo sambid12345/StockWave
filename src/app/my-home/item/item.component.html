@@ -1,0 +1,123 @@
+<div class="flex flex-col gap-6 p-5">
+    <!-- Item Search section -->
+    <section class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2 md:flex md:flex-row md:gap-2">
+            <input type="text" placeholder="Search" class="shadow-md rounded-md border-gray-400 focus:border-gray-500 sm:w-full md:w-[90%]">
+            <button class="flex gap-3 bg-buttonPrimary p-3 shadow-md rounded-lg hover:bg-btnPrimaryHover sm:w-full md:w-[10%]">
+                <svg
+                class="mt-[6px] flex-shrink-0 w-4 h-4 fill-iconFillCol transition duration-75"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                   d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                </svg>
+                <p>Search</p> 
+            </button>
+        </div>
+        
+        <div >
+           <div class="flex gap-2">
+                <button (click)="showContextMenu('showLocationMenu')"  class="bg-headerCol px-4 py-1 rounded-lg text-white flex gap-1 text-sm">
+                    Locations
+                    <svg class="h-5 w-5 pt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fill-white" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+        
+                </button>
+                 
+                <button (click)="showContextMenu('showLabels')" class="flex gap-3 bg-headerCol px-4 py-1 rounded-lg text-white text-sm">
+                    <p>Labels</p> 
+                    <svg class="h-5 w-5 pt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fill-white" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+
+                </button>
+                <button (click)="showContextMenu('showOptions')" class="flex gap-3 bg-headerCol px-4 py-1 rounded-lg text-white text-sm">
+                    <p>Options</p>
+                    <svg class="h-5 w-5 pt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="fill-white" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+
+                </button>
+           </div>
+            <div class="relative">
+                <div *ngIf="showLocationMenu" class="z-50 left-0 flex flex-col gap-2 top-3 w-auto dropdown absolute bg-white p-4 shadow-md rounded-md">
+                    <div class="">
+                        <input type="text" placeholder="Search..."
+                            class="rounded-lg h-8 w-[100%] border-gray-400 focus:border-gray-500">
+                    </div>
+                    <!-- <hr> -->
+                    <div class="max-h-44 overflow-y-auto scrollbar px-3">
+                        <ul>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 1 opttttttttttttttttttttttttttt nnb bbb</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 2</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 3</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 1 opttttttttttttttttttttttttttt nnb bbb</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 2</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 3</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 1 opttttttttttttttttttttttttttt nnb bbb</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 2</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 3</li>
+            
+                        </ul>
+                    </div>
+            
+                </div>
+                <div *ngIf="showLabels" class="z-50 left-[125px] flex flex-col gap-2 top-3 w-auto dropdown absolute bg-white p-4 shadow-md rounded-md">
+                    <div class="">
+                        <input type="text" placeholder="Search..."
+                            class="rounded-lg h-8 w-[100%] border-gray-400 focus:border-gray-500">
+                    </div>
+                   
+                    <div class="max-h-44 overflow-y-auto scrollbar px-3">
+                        <ul>
+                            <li class="border-t py-2 border-gray-200 text-xs">Label 1</li>
+                            <li class="border-t py-2 border-gray-200 text-xs">label 2</li>
+                           
+                        </ul>
+                    </div>
+                </div>
+                <div *ngIf="showOptions" class="z-50 left-[234px] flex flex-col gap-2 top-3 w-auto dropdown absolute bg-white p-4 shadow-md rounded-md">
+                   
+                    
+                    <div class="max-h-44 overflow-y-auto scrollbar px-3">
+                        <ul>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 100 </li>
+                            <li class="border-t py-2 border-gray-200 text-xs">Option 200</li>
+                           
+            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    </section>
+    <!-- Item List Setion -->
+    <section >
+        <div class="flex flex-col gap-3">
+            <p class=" font-semibold text-3xl text-textColSecondary"> Items </p>
+            <p class="text-textColSecondary">187 results</p>
+        </div>
+        <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-4">
+
+            
+
+            <a *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17,18, 19, 20]" href="#" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+                <span class="relative">
+                    <img class=" rounded-t-lg w-full h-32" src="https://voltalithiumhub.in/wp-content/uploads/2021/07/48V-20AH-Lithium-Ion-Battery-for-Hero-Flash-Hero-NYX-Hero-Optima-Tunwal-Yo-Bikes.jpeg" alt="" />
+                    
+                        <a href="" class="absolute left-2 px-2 bottom-[8px] bg-headerCol shadow-md rounded-md">
+                            <span class="text-sm text-white"> TAG</span>
+                        </a> 
+
+                    
+                </span>
+                <div class="p-5">
+                    
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-textColSecondary">Noteworthy technology acquisitions 2021</h5>
+                    
+                    <p class="overflow-hidden mb-3 font-normal text-textColSecondary">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                   
+                </div>
+            </a>
+
+
+            
+        </div>
+    </section>
+</div>

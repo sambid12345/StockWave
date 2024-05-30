@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { MyHomeComponent } from "./my-home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ItemDetailComponent } from "./item-detail/item-detail.component";
+import { ItemComponent } from "./item/item.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,9 @@ const routes: Routes = [
             {path: 'home', component: HomeComponent},
             {
                 path: 'profile', component: ProfileComponent
+            },
+            {
+                path: 'items', component: ItemComponent
             },
             {
                 path: 'item/:itemId', 

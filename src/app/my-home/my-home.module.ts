@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { MyHomeComponent } from './my-home.component';
+import { ItemComponent } from './item/item.component';
 
 
 
@@ -19,7 +20,8 @@ import { MyHomeComponent } from './my-home.component';
     HomeComponent,
     SidebarComponent,
     ProfileComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    ItemComponent
   ],
   imports: [
     FormsModule,
