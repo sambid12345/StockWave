@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { HomeService } from '../Service/home.service';
 
 @Component({
   selector: 'app-item',
@@ -10,12 +11,14 @@ export class ItemComponent implements OnInit{
   showLocationMenu = false;
   showLabels = false;
   showOptions = false;
-  constructor(){
+
+  itemList : any;
+  constructor(private homeService: HomeService){
 
   }
 
   ngOnInit(): void {
-    
+    this.getItemList();
   }
 
   showContextMenu(menuOption: any){
@@ -42,6 +45,14 @@ export class ItemComponent implements OnInit{
         }
         break;
     }
+  }
+  getItemList(){
+    this.homeService.getItemList().subscribe({
+      next: (items: any)=>{
+        this.itemList = items; 
+      },
+      error:(error)=>{console.log(error)}
+    })
   }
  
 }

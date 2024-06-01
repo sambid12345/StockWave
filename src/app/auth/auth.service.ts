@@ -76,4 +76,8 @@ export class AuthService {
         let url = `${environment.baseUrl}users/change-password`;
         return this.http.put(url, userInfo);
     }
+
+    getAuthToken(){
+        return localStorage.getItem("authToken");
+    }
 }

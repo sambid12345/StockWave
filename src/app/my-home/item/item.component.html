@@ -83,8 +83,6 @@
                     </div>
                 </div>
             </div>
-           
-
         </div>
     </section>
     <!-- Item List Setion -->
@@ -94,30 +92,20 @@
             <p class="text-textColSecondary">187 results</p>
         </div>
         <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-4">
-
-            
-
-            <a *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17,18, 19, 20]" href="#" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+            <a *ngFor="let item of itemList" href="/user/item/{{item._id}}" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
                 <span class="relative">
                     <img class=" rounded-t-lg w-full h-32" src="https://voltalithiumhub.in/wp-content/uploads/2021/07/48V-20AH-Lithium-Ion-Battery-for-Hero-Flash-Hero-NYX-Hero-Optima-Tunwal-Yo-Bikes.jpeg" alt="" />
-                    
-                        <a href="" class="absolute left-2 px-2 bottom-[8px] bg-headerCol shadow-md rounded-md">
-                            <span class="text-sm text-white"> TAG</span>
-                        </a> 
-
-                    
+                    <a href="" class="absolute left-2 px-2 bottom-[8px] bg-headerCol shadow-md rounded-md">
+                        <span class="text-sm text-white"> TAG</span>
+                    </a> 
                 </span>
                 <div class="p-5">
                     
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-textColSecondary">Noteworthy technology acquisitions 2021</h5>
-                    
-                    <p class="overflow-hidden mb-3 font-normal text-textColSecondary">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                   
+                    <h5 class="mb-2 text-lg font-bold tracking-tight text-textColSecondary">{{item.name}}</h5>
+                    <hr>
+                    <p class="overflow-hidden mb-3 font-normal text-textColSecondary">{{item.description}}</p>
                 </div>
-            </a>
-
-
-            
+            </a>   
         </div>
     </section>
 </div>
