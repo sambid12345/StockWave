@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { ModalService } from '../../shared/components/modal/modal.service';
 
@@ -8,6 +8,9 @@ import { ModalService } from '../../shared/components/modal/modal.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit{
+
+  @Output() eventName = new EventEmitter<any>();
+  
   ngOnInit(){
 
   }
@@ -16,6 +19,7 @@ export class SidebarComponent implements OnInit{
   }
 
   signOut(){
+    this.eventName.emit();
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'manualLogout',

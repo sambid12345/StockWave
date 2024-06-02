@@ -1,11 +1,15 @@
-<div class="flex flex-row h-screen bg-img bg-cover bg-baseBgCol">
+<div class="flex flex-row h-screen bg-img bg-cover bg-baseBgCol w-full">
+   
     <!-- side bar -->
-   <app-sidebar></app-sidebar>
-   <!-- main section -->
-    <div class="overflow-y-hidden w-full flex flex-col">
-         <!-- top header -->
-        <div class="h-[12%] z-[99] shadow-lg w-full flex flex-row items-center md:hidden bg-gray-600 ">
-            <button id="hamBurgerBtn" *ngIf="showMenu" type="button" (click)="toggleSidebar($event)"
+    <app-sidebar id="sidebar" *ngIf="isLargeScreen || (!isLargeScreen && showMenu)" (eventName)="closeSidebar($event)"
+    class="overflow-y-auto top-0 left-0 z-[9999] h-screen flex-col w-[14rem]">
+    </app-sidebar>
+
+    <div class="w-full md:w-[83%] h-full overflow-y-auto " (click)="!isLargeScreen? toggleSidebar($event):''">
+         <!-- main section -->
+        <!-- top header -->
+        <div *ngIf="!isLargeScreen" class="h-[12%] z-[99] shadow-lg w-full flex flex-row items-center bg-gray-600 ">
+            <button id="hamBurgerBtn"  type="button" (click)="toggleSidebar($event)"
                 class=" md:hidden lg:hidden inline-flex items-center p-2 mt-1 ml-1 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                     <path
@@ -14,11 +18,20 @@
             </button>
         </div>
 
-        <!-- Body section -->
-        <div (click)="closeSideBar()" class=" overflow-y-auto h-[88%] md:h-[100%] flex flex-col">
-            <router-outlet></router-outlet>
-        </div>
+        <!-- fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50 -->
+        <div class="overflow-y-hidden w-full flex flex-col" 
+        
+        [ngClass]="(!isLargeScreen && showMenu)?'fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50 inset-0 pointer-events-none':''">
+            
+            
 
+            <!-- Body section -->
+            <div (click)="closeSideBar($event)" class=" overflow-y-hidden h-full md:h-[100%] flex flex-col">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
     </div>
+  
    
 </div>
