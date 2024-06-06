@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { ModalService } from '../../shared/components/modal/modal.service';
 
@@ -15,7 +15,9 @@ export class SidebarComponent implements OnInit{
   ngOnInit(){
     this.initiateSidebarList();
   }
-  constructor(private authService: AuthService, private modalService: ModalService){
+  constructor(private authService: AuthService, private modalService: ModalService,
+    private elementRef: ElementRef
+  ){
 
   }
   initiateSidebarList(){

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { ModalService } from '../shared/components/modal/modal.service';
 
 @Component({
@@ -10,7 +10,7 @@ export class MyHomeComponent implements OnInit, AfterViewInit{
   showMenu: boolean = false;
   isLargeScreen = false;
 
-  constructor(private modalService: ModalService){
+  constructor(private modalService: ModalService, private elementRef: ElementRef){
 
   }
 
@@ -47,9 +47,9 @@ export class MyHomeComponent implements OnInit, AfterViewInit{
       }
     }
   }
-
  
-  toggleSidebar(event: Event) {
+ 
+  toggleSidebar(event: Event) {  
     if (event) {
       event.stopPropagation();
     }
