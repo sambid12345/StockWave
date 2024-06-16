@@ -14,6 +14,8 @@ export class ModalComponent implements OnInit, OnChanges {
   currentPassToggleBtn: any
   newPassToggleBtn: any 
   @Output('onModalClose') onModalClose = new EventEmitter<any>();
+
+  @Input('modalWidth') modalWidth = 300;
   @Input('headerMessage') headerMessage = '';
   @Input('headerDescription') headerDescription = '';
   @Input('showModalBody') showModalBody = false;
@@ -40,52 +42,23 @@ export class ModalComponent implements OnInit, OnChanges {
       this.newPassToggleBtn = 'password';
     }
   }
-  // toggle(frmControlName: any){
-  //   if(frmControlName === 'currentPassword' && this.currentPassToggleBtn in ['password', 'text']){
-  //     this.currentPassToggleBtn =  this.currentPassToggleBtn === 'password'?'text':'password';
-  //   }else if(frmControlName === 'newPassword' && this.currentPassToggleBtn in ['password', 'text']){
-  //     this.newPassToggleBtn = this.newPassToggleBtn ==='password'?'text': 'text';
-  //   }
-  // }
-  // getInputType(frmControlName: any, clickedStatus?: boolean){
-  //   if(frmControlName === 'currentPassword'){
-  //     return this.currentPassToggleBtn;
-  //   }else if(frmControlName === 'newPassword'){
-  //     return this.newPassToggleBtn;
-  //   }
-  // }
+ 
   initilizeModalForm(){
-    // formControlInfo: [{
-    //   formControlName: 'email',
-    //   isRequired: true,
-    //   type: 'input'
-    // }]
     if(this.hasAnyForm){
       this.formCtrlInfo.forEach((frmCtrl: any)=>{
 
         if(this.modalName === 'changePassword' && frmCtrl.formControlName === 'newPassword'){
-          // this.modalForm.addControl(frmCtrl.formControlName, new FormControl(frmCtrl.defaultValue,
-          //   [Validators.required, authValidator.passwordStrengthValidator()]
-          // ))
           this.modalForm.addControl('newPassword', new FormControl('', authValidator.passwordStrengthValidator()))
         }
 
         this.modalForm.addControl(frmCtrl.formControlName,new FormControl(frmCtrl.defaultValue, frmCtrl.validations))
-        // if(frmCtrl.isRequired){
-        //   this.modalForm.addControl(frmCtrl.formControlName, new FormControl('', [Validators.required, Validators.email]));
-        // }else{
-        //   this.modalForm.addControl(frmCtrl.formControlName, new FormControl('', [Validators.email]));
-          
-        // }
-        
       })
-      // this.modalForm = this.fb.group({
-      //   email:['sam@gmail.com',[Validators.required,Validators.email]],
-      //  });
     }
   }
   
   closeModal(btnId?: string){
+
+    console.log('close clicked');
   
     if(this.modalName === 'autoLogout'){
       localStorage.removeItem("authToken");
@@ -108,6 +81,12 @@ export class ModalComponent implements OnInit, OnChanges {
     }else if(this.modalName === 'manualLogout'){
       if(btnId === 'manualLogoutBtn'){
         this.onModalClose.emit({manualLogout: true});
+      }else{
+        this.onModalClose.emit();
+      }
+    }else if(this.modalName === 'createItem'){
+      if( btnId ==='createBtn' && this.hasAnyForm && this.modalForm && this.modalForm.valid && this.modalForm.value){
+        this.onModalClose.emit(this.modalForm.value);
       }else{
         this.onModalClose.emit();
       }

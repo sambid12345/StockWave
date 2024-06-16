@@ -2,6 +2,7 @@
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",
+    "./node_modules/flowbite/**/*.js"
   ],
   darkMode: 'class',
   
@@ -60,9 +61,8 @@ module.exports = {
   //   }
   },
   plugins: [
-    require('tailwind-scrollbar'),
-    require('flowbite/plugin')
-  ],
-  
+    require('flowbite/plugin'),
+    require('tailwind-scrollbar')
+  ]
 }
 

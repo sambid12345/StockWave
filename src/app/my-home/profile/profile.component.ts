@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../shared/components/modal/modal.service';
 import { Validators } from '@angular/forms';
-import AuthValidator from '../../shared/validators/auth.validator';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -13,14 +13,12 @@ export class ProfileComponent implements OnInit{
 
   themeArray: any = [];
   userInfo : any
-  constructor(private modalService: ModalService,
-    private authService: AuthService
+  constructor(private modalService: ModalService, private authService: AuthService
   ){
 
   }
   ngOnInit(): void {
-    this.getUserInfo();
-    
+   this.getUserInfo();
     this.themeArray = [
       {
         name: 'default',
@@ -43,8 +41,12 @@ export class ProfileComponent implements OnInit{
     ]
   }
   getUserInfo(){
-    this.userInfo = this.authService.getUserInfo();
-    console.log('user Info', this.userInfo);
+    this.authService.getUserInfo().subscribe({
+      next: (res)=>{console.log('user info', res);
+        this.userInfo = res;
+      },
+      error: (error)=>{console.log(error)}
+    })
   } 
   changeTheme(themeName: string){
     document.querySelector('html')?.setAttribute('data-theme', themeName);
@@ -58,7 +60,7 @@ export class ProfileComponent implements OnInit{
       titleMessage: 'Change Password',
       titleDescription: '',
       showBody: true,
-      modalBodyContent: 'Enter Your Credentials',
+      modalBodyContent: null,
       isFormControl: true,
       formControlInfo: [{
         formControlName: 'usermail',
@@ -66,7 +68,8 @@ export class ProfileComponent implements OnInit{
         defaultValue: '',
         placeHolder: 'Enter email address',
         isRequired: true,
-        type: 'email'
+        type: 'input',
+        format: 'email'
       },
       {
         formControlName: 'currentPassword',

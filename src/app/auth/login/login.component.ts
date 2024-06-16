@@ -62,9 +62,6 @@ export class LoginComponent implements OnInit{
           this.toastService.setToastInfo({showToast: true, toastMessage: 'Login Successful!', toastType: 'success'})
           this.showLoginLoader = false;
 
-          // Yet to be implemented
-          // this.authService.storeUserInfo(res?.userInfo);          
-
           let tokenExpirationTime = res.tokenExpiration;
           console.log('response', res);
           localStorage.setItem("authToken" , res.token);
@@ -125,7 +122,8 @@ export class LoginComponent implements OnInit{
         defaultValue: '',
         placeHolder: 'Enter Email',
         isRequired: true,
-        type: 'email'
+        type: 'input',
+        format: 'email'
       }],
       footerButtons: [
         {

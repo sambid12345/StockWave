@@ -8,8 +8,8 @@
          </svg>
    </div>
    <ul class="font-medium flex flex-col items-center gap-4">
-      <li class="rounded-lg hover:bg-btnPrimaryHover w-40 bg-buttonPrimary" >
-         <a href="#" class=" flex flex-row justify-center p-2 text-textColPrimary rounded-lg group">
+      <li class="rounded-lg hover:bg-btnPrimaryHover w-40 bg-buttonPrimary relative" >
+         <a (click)="toggleDropdown()" class=" flex flex-row justify-center p-2 text-textColPrimary rounded-lg group cursor-pointer">
             <svg
                   class="mt-1 flex-shrink-0 w-5 h-5 fill-iconFillCol transition duration-75   "
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -17,13 +17,30 @@
                   d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
 
-            <span class="ms-3 text-lg">Create</span>
+            <span  class="ms-3 text-lg">Create</span>
+             <!-- Dropdown menu -->
+           
          </a>
+         <div *ngIf="dropdownToggler" class="absolute top-[45px] w-40 bg-white divide-y divide-gray-100 rounded-xl shadow">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" >
+               <li>
+                  <a (click)="showCreateAssetModal()"
+                     class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Item / Asset</a>
+               </li>
+               <li>
+                  <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Location</a>
+               </li>
+               <li>
+                  <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Label</a>
+               </li>
+              
+            </ul>
+         </div>
       </li>
 
       <li *ngFor="let item of sidebarListItem" class="rounded-lg hover:bg-btnSecondaryHover w-40">
          <ng-container *ngIf="item.name != 'Sign Out'">
-            <a  href="{{item.hrefLink}}" class="flex flex-row justify-center p-2 text-textColSecondary group">
+            <a routerLink="{{item.hrefLink}}" class="flex flex-row justify-center p-2 text-textColSecondary group">
                <svg class="mt-1 flex-shrink-0 w-5 h-5 fill-iconFillCol transition duration-75 "
                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                   <path [attr.d]="item.iconPath"  />

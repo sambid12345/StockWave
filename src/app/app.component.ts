@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
 
   showModal: boolean = false;
   popupName: any;
+  modalWidth = 0;
   modalTitleMsg: string = '';
   modalTitleDescription = '';
   showModalBody: boolean = false;
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
       this.popupName = modalInfo.popupName;
       this.modalTitleMsg = modalInfo.titleMessage;
       this.modalTitleDescription = modalInfo.titleDescription;
+      this.modalWidth = modalInfo.modalWidth;
       this.showModalBody = modalInfo.showBody;
       this.bodyContent = modalInfo.showBody? modalInfo.modalBodyContent: '';
 
@@ -110,6 +112,10 @@ export class AppComponent implements OnInit, AfterViewChecked{
       }else if(this.popupName === 'manualLogout'){
         if(value && value?.manualLogout){
           this.authService.userSignout();
+        }
+      }else if(this.popupName === 'createItem'){
+        if(this.hasFormControls && value){
+          console.log('Item value', value);
         }
       }
     this.resetModalPopupProperties();

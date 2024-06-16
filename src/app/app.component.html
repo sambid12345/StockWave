@@ -2,6 +2,7 @@
 <app-modal *ngIf="showModal" 
     (onModalClose)="onCloseModal($event)"
     [headerMessage]="modalTitleMsg"
+    [modalWidth]="modalWidth"
     [headerDescription]="modalTitleDescription"
     [showModalBody]="showModalBody"
     [modalName]="popupName"

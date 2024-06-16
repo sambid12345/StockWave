@@ -1,97 +1,146 @@
 <div class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"(click)="closeModal()" ></div>
 
-<div class="fixed top-1/2 left-1/2 flex flex-col gap-5 transform -translate-x-1/2 -translate-y-1/2 bg-white p-7 rounded-2xl shadow-lg z-50">
+<div [style.width.px]="modalWidth"
+    class="fixed top-1/2 left-1/2 flex flex-col gap-2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-7 rounded-2xl shadow-lg z-50">
 
-  <!-- Modal header -->
-  <div class="flex flex-col gap-3 justify-center p-2 md:p-2 rounded-t">
-    <div class="flex flex-row gap-10">
-        <h3 class="ml-10 text-xl text-center font-bold text-gray-900">
-            {{headerMessage}}
-        </h3>
-        <button type="button" (click)="closeModal()" 
-        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-            </svg>
-            <span class="sr-only">Close modal</span>
-        </button>
-    </div>
-    
-    <span class="flex justify-center">{{headerDescription}}</span>
-   
-  </div>
-
-  <!-- Modal body -->
-  <div *ngIf="showModalBody" class="p-2 md:p-2 space-y-4">
-    <p *ngIf="showBodyContent" class="text-base leading-relaxed text-gray-500">
-        {{showBodyContent}}
-    </p>
-
-    <div *ngIf="hasAnyForm" [formGroup]="modalForm" class="">
-        
-        <div class="mt-4" *ngFor="let frmCtrl of formCtrlInfo">
-            <!-- {{modalForm.get(frmCtrl.formControlName)?.valid}} -->
-
-            <!-- {{modalForm.get(frmCtrl.formControlName)?.touched}} -->
-            <div *ngIf="frmCtrl.type === 'password' && frmCtrl.formControlName === 'currentPassword'" class="relative">
-                <input [type]=" currentPassToggleBtn" [formControlName]='frmCtrl.formControlName' [placeholder]="frmCtrl.placeHolder" [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
-                    class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
-
-                    <span class="absolute inset-y-0 end-0 grid w-10 place-content-center text-gray-500"
-                    >
-                    <button >
-                        <svg *ngIf="currentPassToggleBtn == 'text'" (click)="currentPassToggleBtn = 'password'" class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
-                        </svg>
-                        <svg *ngIf="currentPassToggleBtn == 'password'" (click)="currentPassToggleBtn = 'text'" class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/>
-                        </svg>
-                    </button>
-                  
-                    </span>
-            </div>
-            <div *ngIf="frmCtrl.type === 'password' && frmCtrl.formControlName === 'newPassword'" class="relative">
-                <input [type]="newPassToggleBtn" [formControlName]='frmCtrl.formControlName' [placeholder]="frmCtrl.placeHolder" [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
-                    class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
-
-                    <span class="absolute inset-y-0 end-0 grid w-10 place-content-center text-gray-500"
-                    >
-                    <button >
-                        <svg *ngIf="newPassToggleBtn == 'text'" (click)="newPassToggleBtn = 'password'" class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
-                        </svg>
-                        <svg *ngIf="newPassToggleBtn == 'password'" (click)="newPassToggleBtn = 'text'" class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/>
-                        </svg>
-                    </button>
-                  
-                    </span>
-            </div>
-            <div *ngIf="frmCtrl.type != 'password'">
-                <input [type]="frmCtrl.type" [formControlName]='frmCtrl.formControlName' [placeholder]="frmCtrl.placeHolder" [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
-                class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
-            </div>
-            
-            <!-- <input [type]="frmCtrl.type" [formControlName]='frmCtrl.formControlName' [placeholder]="frmCtrl.placeHolder" [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' " 
-             class="shadow-md block w-full p-2 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"> -->
+    <!-- Modal header -->
+    <div class="flex flex-col gap-3 justify-center p-2 md:p-2 rounded-t">
+        <div class="flex flex-row gap-10">
+            <h3 class="ml-10 text-xl text-center font-bold text-gray-900">
+                {{headerMessage}}
+            </h3>
+            <button type="button" (click)="closeModal()"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
         </div>
-    </div>
-    
-   </div>
 
-   <!-- Modal footer -->
-   <div *ngIf="footerButtons.length > 0" class="flex flex-col gap-4 items-center p-2 md:p-2 border-gray-200 rounded-b ">
-    <ng-container *ngFor="let btn of footerButtons">
-        <ng-container *ngIf="btn.buttonType === 'submit' && hasAnyForm">
-            <button [disabled]="!modalForm.valid" [id]="btn.buttonId" (click)="closeModal(btn.buttonId)"
-                [type]="btn.buttonType" [ngClass]="modalForm.valid ? 'bg-[#262626] text-white cursor-pointer' : 'text-gray-800 bg-[#cccccc] cursor-not-allowed'"
-                class="w-full focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
-                {{btn.buttonName}}
-            </button>
+        <span *ngIf="headerDescription" class="flex justify-center">{{headerDescription}}</span>
+
+    </div>
+
+    <!-- Modal body -->
+    <div *ngIf="showModalBody" class="p-2 md:p-2 space-y-4">
+        <p *ngIf="showBodyContent" class="text-base leading-relaxed text-gray-500">
+            {{showBodyContent}}
+        </p>
+
+        <div *ngIf="hasAnyForm" [formGroup]="modalForm" class="flex flex-col">
+
+            <div class="mt-3 flex flex-col gap-1" *ngFor="let frmCtrl of formCtrlInfo" >
+
+                <ng-container *ngIf="frmCtrl.type === 'password'">
+                    <div *ngIf="frmCtrl.formControlName === 'currentPassword'" class="relative">
+                        <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                        <input [type]=" currentPassToggleBtn" [formControlName]='frmCtrl.formControlName'
+                            
+                            [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' "
+                            class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+
+                        <span class="mt-[20px] absolute inset-y-0 end-0 grid w-10 place-content-center text-gray-500">
+                            <button>
+                                <svg *ngIf="currentPassToggleBtn == 'text'" (click)="currentPassToggleBtn = 'password'"
+                                    class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <path
+                                        d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z" />
+                                </svg>
+                                <svg *ngIf="currentPassToggleBtn == 'password'" (click)="currentPassToggleBtn = 'text'"
+                                    class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 640 512">
+                                    <path
+                                        d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z" />
+                                </svg>
+                            </button>
+
+                        </span>
+                    </div>
+                    <div *ngIf="frmCtrl.formControlName === 'newPassword'" class="relative">
+                        <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                        <input [type]="newPassToggleBtn" [formControlName]='frmCtrl.formControlName'
+                            [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' "
+                            class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+
+                        <span class="mt-[20px] absolute inset-y-0 end-0 grid w-10 place-content-center text-gray-500">
+                            <button>
+                                <svg *ngIf="newPassToggleBtn == 'text'" (click)="newPassToggleBtn = 'password'"
+                                    class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <path
+                                        d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z" />
+                                </svg>
+                                <svg *ngIf="newPassToggleBtn == 'password'" (click)="newPassToggleBtn = 'text'"
+                                    class="h-4 w-4 cursor-pointer z-50" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 640 512">
+                                    <path
+                                        d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z" />
+                                </svg>
+                            </button>
+
+                        </span>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="frmCtrl.type == 'input'">
+                    <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                    <input [type]="frmCtrl.format" [formControlName]='frmCtrl.formControlName'
+                        
+                        [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' "
+                        class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+                </ng-container>
+
+                <ng-container *ngIf="frmCtrl.type == 'textArea'">
+                    <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                    <textarea [formControlName]='frmCtrl.formControlName'
+                    [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' "
+                    class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none">
+                        
+                    </textarea>
+                   
+                </ng-container>
+
+                <ng-container *ngIf="frmCtrl.type == 'select'">
+                    <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                    <select [formControlName]='frmCtrl.formControlName' class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
+                    [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
+                        
+                        <option [value]="null" ></option>
+                        <option value="CA">Canada</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                      </select>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal footer -->
+    <div *ngIf="footerButtons.length > 0"
+        class="flex flex-col gap-4 items-center p-2 md:p-2 border-gray-200 rounded-b ">
+        <ng-container *ngFor="let btn of footerButtons">
+            <ng-container *ngIf="btn.buttonType === 'submit' && hasAnyForm">
+                <button [disabled]="!modalForm.valid" [id]="btn.buttonId" (click)="closeModal(btn.buttonId)"
+                    [type]="btn.buttonType"
+                    [ngClass]="modalForm.valid ? 'bg-[#262626] text-white cursor-pointer' : 'text-gray-800 bg-[#cccccc] cursor-not-allowed'"
+                    class="w-full focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
+                    {{btn.buttonName}}
+                </button>
+               
+            </ng-container>
+            <ng-container *ngIf="!(btn.buttonType === 'submit' && hasAnyForm)">
+                <button [id]="btn.buttonId" (click)="closeModal(btn.buttonId)"
+                    class="bg-gray-500 hover:bg-gray-900 text-white w-full focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
+                    {{btn.buttonName}}
+                </button>
+            </ng-container>
+
         </ng-container>
-        <ng-container *ngIf="!(btn.buttonType === 'submit' && hasAnyForm)"> 
-            <button [id]="btn.buttonId" (click)="closeModal(btn.buttonId)" class="bg-gray-500 hover:bg-gray-900 text-white w-full focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
-                {{btn.buttonName}}
-            </button>
-        </ng-container>
-       
-    </ng-container>
-    
-   </div>
+
+    </div>
 </div>
