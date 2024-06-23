@@ -57,11 +57,11 @@ export class ProfileComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'changePassword',
-      titleMessage: 'Change Password',
-      titleDescription: '',
-      showBody: true,
-      modalBodyContent: null,
-      isFormControl: true,
+      modalWidth: 350,
+      modalTitleMsg: 'Change Password',
+      modalTitleDescription: '',
+      showModalBody: true,
+      hasFormControls: true,
       formControlInfo: [{
         formControlName: 'usermail',
         validations: [Validators.required, Validators.email],
@@ -74,17 +74,20 @@ export class ProfileComponent implements OnInit{
       {
         formControlName: 'currentPassword',
         validations: [Validators.required],
+        defaultValue: null,
         placeHolder: 'Enter Current Password',
         isRequired: true,
-        type: 'password'
+        type: 'password',
+        format: null
       },
       {
         formControlName: 'newPassword',
-        // AuthValidator.passwordStrengthValidator()
-        // validations: [Validators.required, ],
+        validations: [Validators.required],
+        defaultValue: null,
         placeHolder: 'Enter New Password',
         isRequired: true,
-        type: 'password'
+        type: 'password',
+        format: null
       }],
      
       footerButtons: [

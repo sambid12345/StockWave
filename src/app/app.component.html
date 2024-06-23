@@ -1,16 +1,7 @@
 <app-toast *ngIf='showToast' [message]="toastMessage" [type]="toastType" (onClose)="hideToast()"></app-toast>
-<app-modal *ngIf="showModal" 
+<app-modal *ngIf="modalInfo && modalInfo?.showModal" 
     (onModalClose)="onCloseModal($event)"
-    [headerMessage]="modalTitleMsg"
-    [modalWidth]="modalWidth"
-    [headerDescription]="modalTitleDescription"
-    [showModalBody]="showModalBody"
-    [modalName]="popupName"
-    [showBodyContent]="bodyContent"
-    [hasAnyForm]="hasFormControls"
-    [formCtrlInfo]="formControlInfo"
-    [footerButtons]="modalFooterBtns"
-    >
+    [modalInfo] = "modalInfo">
 </app-modal> 
 
 <router-outlet></router-outlet>

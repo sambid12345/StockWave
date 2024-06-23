@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Modal } from './modal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,10 @@ import { Subject } from 'rxjs';
 export class ModalService {
 
   constructor() { }
-  modalInfo: Subject<any> = new Subject();
+  modalInfo: Subject<Modal> = new Subject();
 
 
-  setModalInfo(modalInfo: any){
+  setModalInfo(modalInfo: Modal){
     this.modalInfo.next(modalInfo);
   }
   getModalInfo(){

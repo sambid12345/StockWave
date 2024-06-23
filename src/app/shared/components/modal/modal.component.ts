@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import authValidator from '../../validators/auth.validator';
+import { Modal } from './modal.model';
 
 @Component({
   selector: 'app-modal',
@@ -14,17 +15,7 @@ export class ModalComponent implements OnInit, OnChanges {
   currentPassToggleBtn: any
   newPassToggleBtn: any 
   @Output('onModalClose') onModalClose = new EventEmitter<any>();
-
-  @Input('modalWidth') modalWidth = 300;
-  @Input('headerMessage') headerMessage = '';
-  @Input('headerDescription') headerDescription = '';
-  @Input('showModalBody') showModalBody = false;
-  @Input('modalName') modalName = ''; 
-  @Input('showBodyContent') showBodyContent  = '';
-  @Input('hasAnyForm') hasAnyForm = false;
-  @Input('formCtrlInfo') formCtrlInfo : any
-  @Input('footerButtons')footerButtons : any
-
+  @Input('modalInfo') modalInfo!: Modal;
   modalForm: FormGroup = this.fb.group({});
 
   constructor(private fb: FormBuilder, private router:Router){}
@@ -37,17 +28,17 @@ export class ModalComponent implements OnInit, OnChanges {
   }
 
   initilizePasswordEyeToggler(){
-    if(this.hasAnyForm && this.modalName === 'changePassword'){
+    if(this.modalInfo.hasFormControls && this.modalInfo.popupName === 'changePassword'){
       this.currentPassToggleBtn = 'password';
       this.newPassToggleBtn = 'password';
     }
   }
  
   initilizeModalForm(){
-    if(this.hasAnyForm){
-      this.formCtrlInfo.forEach((frmCtrl: any)=>{
+    if(this.modalInfo.hasFormControls && this.modalInfo.formControlInfo){
+      this.modalInfo.formControlInfo.forEach((frmCtrl: any)=>{
 
-        if(this.modalName === 'changePassword' && frmCtrl.formControlName === 'newPassword'){
+        if(this.modalInfo.popupName === 'changePassword' && frmCtrl.formControlName === 'newPassword'){
           this.modalForm.addControl('newPassword', new FormControl('', authValidator.passwordStrengthValidator()))
         }
 
@@ -60,32 +51,32 @@ export class ModalComponent implements OnInit, OnChanges {
 
     console.log('close clicked');
   
-    if(this.modalName === 'autoLogout'){
+    if(this.modalInfo.popupName === 'autoLogout'){
       localStorage.removeItem("authToken");
       localStorage.removeItem('loggeinTimestamp');
       localStorage.removeItem('expiresIn');
       this.router.navigate(['auth','login']);
       this.onModalClose.emit();
-    }else if(this.modalName === 'forgotPassword'){
-      if(btnId === 'sendPassresetBtn' && this.hasAnyForm && this.modalForm && this.modalForm.valid && this.modalForm.value){
+    }else if(this.modalInfo.popupName === 'forgotPassword'){
+      if(btnId === 'sendPassresetBtn' && this.modalInfo.hasFormControls && this.modalForm && this.modalForm.valid && this.modalForm.value){
         this.onModalClose.emit(this.modalForm.value);
       }else{
         this.onModalClose.emit();
       }
-    }else if(this.modalName === 'changePassword'){
-      if( btnId ==='changePassBtn' && this.hasAnyForm && this.modalForm && this.modalForm.valid && this.modalForm.value){
+    }else if(this.modalInfo.popupName === 'changePassword'){
+      if( btnId ==='changePassBtn' && this.modalInfo.hasFormControls && this.modalForm && this.modalForm.valid && this.modalForm.value){
         this.onModalClose.emit(this.modalForm.value);
       }else{
         this.onModalClose.emit();
       }
-    }else if(this.modalName === 'manualLogout'){
+    }else if(this.modalInfo.popupName === 'manualLogout'){
       if(btnId === 'manualLogoutBtn'){
         this.onModalClose.emit({manualLogout: true});
       }else{
         this.onModalClose.emit();
       }
-    }else if(this.modalName === 'createItem'){
-      if( btnId ==='createBtn' && this.hasAnyForm && this.modalForm && this.modalForm.valid && this.modalForm.value){
+    }else if(this.modalInfo.popupName === 'createItem'){
+      if( btnId ==='createBtn' && this.modalInfo.hasFormControls && this.modalForm && this.modalForm.valid && this.modalForm.value){
         this.onModalClose.emit(this.modalForm.value);
       }else{
         this.onModalClose.emit();

@@ -1,13 +1,13 @@
 <div class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"(click)="closeModal()" ></div>
 
-<div [style.width.px]="modalWidth"
+<div [style.width.px]="modalInfo.modalWidth"
     class="fixed top-1/2 left-1/2 flex flex-col gap-2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-7 rounded-2xl shadow-lg z-50">
 
     <!-- Modal header -->
     <div class="flex flex-col gap-3 justify-center p-2 md:p-2 rounded-t">
         <div class="flex flex-row gap-10">
             <h3 class="ml-10 text-xl text-center font-bold text-gray-900">
-                {{headerMessage}}
+                {{modalInfo.modalTitleMsg}}
             </h3>
             <button type="button" (click)="closeModal()"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
@@ -20,19 +20,20 @@
             </button>
         </div>
 
-        <span *ngIf="headerDescription" class="flex justify-center">{{headerDescription}}</span>
+        <span *ngIf="modalInfo.modalTitleDescription" class="flex justify-center">{{modalInfo.modalTitleDescription}}</span>
 
     </div>
 
     <!-- Modal body -->
-    <div *ngIf="showModalBody" class="p-2 md:p-2 space-y-4">
-        <p *ngIf="showBodyContent" class="text-base leading-relaxed text-gray-500">
-            {{showBodyContent}}
+    <div *ngIf="modalInfo.showModalBody" class="p-2 md:p-2 space-y-4">
+        
+        <p *ngIf="modalInfo.bodyContent" class="text-base leading-relaxed text-gray-500">
+            {{modalInfo.bodyContent}}
         </p>
 
-        <div *ngIf="hasAnyForm" [formGroup]="modalForm" class="flex flex-col">
+        <div *ngIf="modalInfo.hasFormControls" [formGroup]="modalForm" class="flex flex-col">
 
-            <div class="mt-3 flex flex-col gap-1" *ngFor="let frmCtrl of formCtrlInfo" >
+            <div class="mt-3 flex flex-col gap-1" *ngFor="let frmCtrl of modalInfo.formControlInfo" >
 
                 <ng-container *ngIf="frmCtrl.type === 'password'">
                     <div *ngIf="frmCtrl.formControlName === 'currentPassword'" class="relative">
@@ -121,10 +122,10 @@
     </div>
 
     <!-- Modal footer -->
-    <div *ngIf="footerButtons.length > 0"
+    <div *ngIf="modalInfo.footerButtons && modalInfo.footerButtons.length > 0"
         class="flex flex-col gap-4 items-center p-2 md:p-2 border-gray-200 rounded-b ">
-        <ng-container *ngFor="let btn of footerButtons">
-            <ng-container *ngIf="btn.buttonType === 'submit' && hasAnyForm">
+        <ng-container *ngFor="let btn of modalInfo.footerButtons">
+            <ng-container *ngIf="btn.buttonType === 'submit' && modalInfo.hasFormControls">
                 <button [disabled]="!modalForm.valid" [id]="btn.buttonId" (click)="closeModal(btn.buttonId)"
                     [type]="btn.buttonType"
                     [ngClass]="modalForm.valid ? 'bg-[#262626] text-white cursor-pointer' : 'text-gray-800 bg-[#cccccc] cursor-not-allowed'"
@@ -133,7 +134,7 @@
                 </button>
                
             </ng-container>
-            <ng-container *ngIf="!(btn.buttonType === 'submit' && hasAnyForm)">
+            <ng-container *ngIf="!(btn.buttonType === 'submit' && modalInfo.hasFormControls)">
                 <button [id]="btn.buttonId" (click)="closeModal(btn.buttonId)"
                     class="bg-gray-500 hover:bg-gray-900 text-white w-full focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-1 ml-1">
                     {{btn.buttonName}}

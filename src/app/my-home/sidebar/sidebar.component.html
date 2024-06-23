@@ -40,7 +40,7 @@
 
       <li *ngFor="let item of sidebarListItem" class="rounded-lg hover:bg-btnSecondaryHover w-40">
          <ng-container *ngIf="item.name != 'Sign Out'">
-            <a routerLink="{{item.hrefLink}}" class="flex flex-row justify-center p-2 text-textColSecondary group">
+            <a (click)="navigateTo(item.hrefLink)" class="flex flex-row justify-center p-2 text-textColSecondary group cursor-pointer">
                <svg class="mt-1 flex-shrink-0 w-5 h-5 fill-iconFillCol transition duration-75 "
                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                   <path [attr.d]="item.iconPath"  />

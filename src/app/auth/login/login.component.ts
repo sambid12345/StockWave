@@ -90,9 +90,11 @@ export class LoginComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'autoLogout',
-      titleMessage: 'You are about to Logout !',
-      titleDescription: 'Token expired, Please Login again!',
-      showBody: false,
+      modalWidth: 300,
+      modalTitleMsg: 'You are about to Logout !',
+      modalTitleDescription: 'Token expired, Please Login again!',
+      showModalBody: false,
+
       footerButtons: [
         {
           buttonType: 'primary',
@@ -111,11 +113,10 @@ export class LoginComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'forgotPassword',
-      titleMessage: 'Forgot Your Password?',
-      titleDescription: `We'll email you a link to reset your password`,
-      showBody: true,
-      modalBodyContent: null,
-      isFormControl: true,
+      modalWidth: 300,
+      modalTitleMsg: 'Forgot Your Password?',
+      modalTitleDescription: `We'll email you a link to reset your password`,
+      hasFormControls: true,
       formControlInfo: [{
         formControlName: 'email',
         validations: [Validators.required, Validators.email],

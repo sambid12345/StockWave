@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } fro
 import { AuthService } from '../../auth/auth.service';
 import { ModalService } from '../../shared/components/modal/modal.service';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,10 +20,19 @@ export class SidebarComponent implements OnInit{
     this.initiateSidebarList();
   }
   constructor(private authService: AuthService, private modalService: ModalService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private router: Router
   ){
 
   }
+
+  navigateTo(hrefLink: any) {
+    this.eventName.emit();
+    if(hrefLink){
+      this.router.navigate([hrefLink]);
+    }
+  }
+
   initiateSidebarList(){
     this.sidebarListItem = [
       {
@@ -66,11 +76,13 @@ export class SidebarComponent implements OnInit{
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'manualLogout',
-      titleMessage: 'Want to Log out?',
-      titleDescription: 'You will be returned to the login screen',
-      showBody: true,
-      modalBodyContent: '',
-      isFormControl: false,
+      modalWidth: 350,
+      modalTitleMsg: 'Want to Log out?',
+      modalTitleDescription: 'You will be returned to the login screen',
+      showModalBody: true,
+      bodyContent: '',
+      hasFormControls: false,
+      formControlInfo: null,
       footerButtons: [
         {
           buttonType: '',
@@ -93,11 +105,11 @@ export class SidebarComponent implements OnInit{
       showModal: true,
       modalWidth: 400,
       popupName: 'createItem',
-      titleMessage: 'Create Item',
-      titleDescription: null,
-      showBody: true,
-      modalBodyContent: null,
-      isFormControl: true,
+      modalTitleMsg: 'Create Item',
+      modalTitleDescription: '',
+      showModalBody: true,
+      bodyContent: '',
+      hasFormControls: true,
       formControlInfo: [
         {
           formControlName: 'parentLocation',

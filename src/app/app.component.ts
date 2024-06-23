@@ -4,6 +4,7 @@ import { ToastService } from './shared/components/toast/toast-service.service';
 import { ModalService } from './shared/components/modal/modal.service';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+import { Modal } from './shared/components/modal/modal.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,20 +16,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: string = '';
-
-  showModal: boolean = false;
-  popupName: any;
-  modalWidth = 0;
-  modalTitleMsg: string = '';
-  modalTitleDescription = '';
-  showModalBody: boolean = false;
-  bodyContent: string = '';
-
-  hasFormControls: boolean = false;
-  formControlInfo: any
-  modalFooterBtns: any;
-
-
+  modalInfo!: Modal
   constructor(private toastService: ToastService,
     private modalService: ModalService,
     private router: Router,
@@ -58,29 +46,16 @@ export class AppComponent implements OnInit, AfterViewChecked{
     });
   }
   initilizeModalService(){
-    this.modalService.getModalInfo().subscribe((modalInfo: any)=>{
-
-      this.showModal = modalInfo.showModal;
-      this.popupName = modalInfo.popupName;
-      this.modalTitleMsg = modalInfo.titleMessage;
-      this.modalTitleDescription = modalInfo.titleDescription;
-      this.modalWidth = modalInfo.modalWidth;
-      this.showModalBody = modalInfo.showBody;
-      this.bodyContent = modalInfo.showBody? modalInfo.modalBodyContent: '';
-
-      this.hasFormControls = modalInfo.isFormControl;
-      this.formControlInfo = modalInfo.formControlInfo;
-
-      this.modalFooterBtns = modalInfo.footerButtons;
-
+    this.modalService.getModalInfo().subscribe((modalInfo: Modal)=>{
+      this.modalInfo = modalInfo;
     })
   }
   hideToast(){
     this.showToast = false;
   }
   onCloseModal(value: any){
-      if(this.popupName === 'forgotPassword'){
-        if(this.hasFormControls && value){
+      if(this.modalInfo.popupName === 'forgotPassword'){
+        if(this.modalInfo.hasFormControls && value){
           this.authService.forgotPassword(value).subscribe({
             next: (response: any)=>{
               this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
@@ -91,8 +66,8 @@ export class AppComponent implements OnInit, AfterViewChecked{
           });
         }
         
-      }else if(this.popupName === 'changePassword'){
-        if(this.hasFormControls && value){
+      }else if(this.modalInfo.popupName === 'changePassword'){
+        if(this.modalInfo.hasFormControls && value){
           this.authService.changePassword(value).subscribe({
             next: (response: any)=>{
               this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
@@ -109,12 +84,12 @@ export class AppComponent implements OnInit, AfterViewChecked{
           })
         }
         
-      }else if(this.popupName === 'manualLogout'){
+      }else if(this.modalInfo.popupName === 'manualLogout'){
         if(value && value?.manualLogout){
           this.authService.userSignout();
         }
-      }else if(this.popupName === 'createItem'){
-        if(this.hasFormControls && value){
+      }else if(this.modalInfo.popupName === 'createItem'){
+        if(this.modalInfo.hasFormControls && value){
           console.log('Item value', value);
         }
       }
@@ -122,15 +97,17 @@ export class AppComponent implements OnInit, AfterViewChecked{
   }
 
   resetModalPopupProperties(){
-    this.showModal = false;
-    this.popupName = null;
-    this.modalTitleMsg = '';
-    this.modalTitleDescription = '';
-    this.showModalBody = false;
-    this.bodyContent = '';
-    this.hasFormControls = false;
-    this.formControlInfo = null
-    this.modalFooterBtns = null;
+     
+    this.modalInfo.showModal = false;
+    this.modalInfo.popupName = null;
+    this.modalInfo.modalTitleMsg = '';
+    this.modalInfo.modalTitleDescription = '';
+    this.modalInfo.showModalBody = false;
+    this.modalInfo.bodyContent = '';
+    this.modalInfo.hasFormControls = false;
+    this.modalInfo.formControlInfo = null
+    this.modalInfo.footerButtons = null;
+
   }
 
 }
