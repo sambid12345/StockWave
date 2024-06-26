@@ -106,15 +106,32 @@
                 </ng-container>
 
                 <ng-container *ngIf="frmCtrl.type == 'select'">
-                    <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
-                    <select [formControlName]='frmCtrl.formControlName' class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
-                    [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
+                    <ng-container *ngIf="frmCtrl.formControlName == 'parentLocation'">
+                        <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                        <select [formControlName]='frmCtrl.formControlName'
+                            class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
+                            [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
                         
-                        <option [value]="null" ></option>
-                        <option value="CA">Canada</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
-                      </select>
+                            <option [value]="null">None</option>
+                            <ng-container *ngFor="let location of locationList">
+                                <option value="location.name">{{location?.name}}</option>
+                            </ng-container>
+                            
+                           
+                        </select>
+                    </ng-container>
+
+                    <ng-container *ngIf="frmCtrl.formControlName != 'parentLocation'">
+                        <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
+                        <select [formControlName]='frmCtrl.formControlName' class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
+                        [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
+                            
+                            <option [value]="null" ></option>
+                            <option value="CA">Canada</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                        </select>
+                    </ng-container>
                 </ng-container>
             </div>
         </div>

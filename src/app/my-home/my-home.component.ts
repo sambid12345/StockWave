@@ -33,7 +33,7 @@ export class MyHomeComponent implements OnInit, AfterViewInit{
   }
 
   addSidebarClass(){
-    console.log('called from ngafterviewinit');
+    
     let sideBar = document.querySelector('#sidebar');
     if(sideBar){
       if( !this.isLargeScreen && this.showMenu){

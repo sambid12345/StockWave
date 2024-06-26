@@ -24,11 +24,11 @@
          <div *ngIf="dropdownToggler" class="absolute top-[45px] w-40 bg-white divide-y divide-gray-100 rounded-xl shadow">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" >
                <li>
-                  <a (click)="showCreateAssetModal()"
+                  <a (click)="showCreateAssetModal('itemAsset')"
                      class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Item / Asset</a>
                </li>
                <li>
-                  <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Location</a>
+                  <a (click)="showCreateAssetModal('location')" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Location</a>
                </li>
                <li>
                   <a class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Label</a>

@@ -5,6 +5,7 @@ import { ModalService } from './shared/components/modal/modal.service';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { Modal } from './shared/components/modal/modal.model';
+import { HomeService } from './my-home/Service/home.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, AfterViewChecked{
   constructor(private toastService: ToastService,
     private modalService: ModalService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService, 
+    private homeService: HomeService
   ){
 
   }
@@ -92,7 +94,24 @@ export class AppComponent implements OnInit, AfterViewChecked{
         if(this.modalInfo.hasFormControls && value){
           console.log('Item value', value);
         }
+      }else if(this.modalInfo.popupName === 'createLocation'){
+        if(this.modalInfo.hasFormControls && value){
+          console.log('Location object', value);
+          this.homeService.createLocation({
+            name: value?.locationName,
+            description: value?.locationDescription,
+            parentLocationId: value?.parentLocation
+          }).subscribe({
+            next: (response: any)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});
+            },
+            error: (error: any)=>{
+              this.toastService.setToastInfo({showToast: true, toastMessage: error?.error?.message || 'Error Occured', toastType: 'error'});
+            }
+          });
+        }
       }
+      
     this.resetModalPopupProperties();
   }
 

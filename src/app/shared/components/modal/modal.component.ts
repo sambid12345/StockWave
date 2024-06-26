@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import authValidator from '../../validators/auth.validator';
 import { Modal } from './modal.model';
+import { HomeService } from 'src/app/my-home/Service/home.service';
 
 @Component({
   selector: 'app-modal',
@@ -18,13 +19,16 @@ export class ModalComponent implements OnInit, OnChanges {
   @Input('modalInfo') modalInfo!: Modal;
   modalForm: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder, private router:Router){}
+  locationList: any
+
+  constructor(private fb: FormBuilder, private router:Router, private homeService: HomeService){}
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initilizePasswordEyeToggler();
     this.initilizeModalForm();
+    this.getLocationList();
   }
 
   initilizePasswordEyeToggler(){
@@ -81,6 +85,24 @@ export class ModalComponent implements OnInit, OnChanges {
       }else{
         this.onModalClose.emit();
       }
+    }else if(this.modalInfo.popupName === 'createLocation'){
+      if( btnId ==='createBtn' && this.modalInfo.hasFormControls && this.modalForm && this.modalForm.valid && this.modalForm.value){
+        this.onModalClose.emit(this.modalForm.value);
+      }else{
+        this.onModalClose.emit();
+      }
+    }
+  }
+  getLocationList(){
+    if(this.modalInfo.popupName === 'createLocation'){
+      this.homeService.getLocations().subscribe({
+        next: (locationList: any)=>{
+          this.locationList = locationList;
+        },
+        error: (error: any)=>{
+
+        }
+      })
     }
   }
 }

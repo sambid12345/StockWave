@@ -97,64 +97,115 @@ export class SidebarComponent implements OnInit{
     this.dropdownToggler = !this.dropdownToggler;
   }
 
-  showCreateAssetModal(){
+  showCreateAssetModal(createAssetFor: string){
     this.eventName.emit();
     this.toggleDropdown();
 
-    this.modalService.setModalInfo({
-      showModal: true,
-      modalWidth: 400,
-      popupName: 'createItem',
-      modalTitleMsg: 'Create Item',
-      modalTitleDescription: '',
-      showModalBody: true,
-      bodyContent: '',
-      hasFormControls: true,
-      formControlInfo: [
-        {
-          formControlName: 'parentLocation',
-          validations: [Validators.required],
-          defaultValue: null,
-          placeHolder: 'Parent Location',
-          isRequired: true,
-          type: 'select',
-          format: ''
-        },
-        {
-          formControlName: 'itemName',
-          validations: [Validators.required],
-          defaultValue: '',
-          placeHolder: 'Item Name',
-          isRequired: true,
-          type: 'input',
-          format: 'text'
-        },
-        {
-          formControlName: 'itemDescription',
-          validations: [Validators.required],
-          defaultValue: '',
-          placeHolder: 'Item Description',
-          isRequired: true,
-          type: 'textArea',
-          format: ''
-        },
-        {
-          formControlName: 'labels',
-          validations: [Validators.required],
-          defaultValue: null,
-          placeHolder: 'Labels',
-          isRequired: true,
-          type: 'select',
-          format: ''
-        }
-      ],
-      footerButtons: [
-        {
-          buttonType: 'submit',
-          buttonName: 'Create',
-          buttonId: 'createBtn'
-        }
-      ]
-    });
+    if(createAssetFor === 'itemAsset'){
+      this.modalService.setModalInfo({
+        showModal: true,
+        modalWidth: 400,
+        popupName: 'createItem',
+        modalTitleMsg: 'Create Item',
+        modalTitleDescription: '',
+        showModalBody: true,
+        bodyContent: '',
+        hasFormControls: true,
+        formControlInfo: [
+          {
+            formControlName: 'parentLocation',
+            validations: [Validators.required],
+            defaultValue: null,
+            placeHolder: 'Parent Location',
+            isRequired: true,
+            type: 'select',
+            format: ''
+          },
+          {
+            formControlName: 'itemName',
+            validations: [Validators.required],
+            defaultValue: '',
+            placeHolder: 'Item Name',
+            isRequired: true,
+            type: 'input',
+            format: 'text'
+          },
+          {
+            formControlName: 'itemDescription',
+            validations: [Validators.required],
+            defaultValue: '',
+            placeHolder: 'Item Description',
+            isRequired: true,
+            type: 'textArea',
+            format: ''
+          },
+          {
+            formControlName: 'labels',
+            validations: [Validators.required],
+            defaultValue: null,
+            placeHolder: 'Labels',
+            isRequired: true,
+            type: 'select',
+            format: ''
+          }
+        ],
+        footerButtons: [
+          {
+            buttonType: 'submit',
+            buttonName: 'Create',
+            buttonId: 'createBtn'
+          }
+        ]
+      });
+    }
+    if(createAssetFor === 'location'){
+      this.modalService.setModalInfo({
+        showModal: true,
+        modalWidth: 400,
+        popupName: 'createLocation',
+        modalTitleMsg: 'Create Location',
+        modalTitleDescription: '',
+        showModalBody: true,
+        bodyContent: '',
+        hasFormControls: true,
+        formControlInfo: [
+          {
+            formControlName: 'locationName',
+            validations: [Validators.required],
+            defaultValue: null,
+            placeHolder: 'Location Name',
+            isRequired: true,
+            type: 'input',
+            format: 'text'
+          },
+          {
+            formControlName: 'locationDescription',
+            validations: [Validators.required],
+            defaultValue: null,
+            placeHolder: 'Location Description',
+            isRequired: true,
+            type: 'textArea',
+            format: ''
+          },
+          {
+            formControlName: 'parentLocation',
+            validations: [],
+            defaultValue: null,
+            placeHolder: 'Parent Location',
+            isRequired: false,
+            type: 'select',
+            format: ''
+          }
+        ],
+        footerButtons: [
+          {
+            buttonType: 'submit',
+            buttonName: 'Create',
+            buttonId: 'createBtn'
+          }
+        ]
+      });
+    }
+    
   }
 }

@@ -13,4 +13,13 @@ export class HomeService {
     let url = `${environment.baseUrl}home/items`;
     return this.http.get(url)
   }
+
+  createLocation(locationData: any){
+    let url = `${environment.baseUrl}home/locations`;
+    return this.http.post(url, locationData);
+  }
+  getLocations(){
+    let url = `${environment.baseUrl}home/locations`;
+    return this.http.get(url);
+  }
 }
