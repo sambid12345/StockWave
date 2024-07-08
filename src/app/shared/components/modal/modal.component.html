@@ -114,7 +114,7 @@
                         
                             <option [value]="null">None</option>
                             <ng-container *ngFor="let location of locationList">
-                                <option value="location.name">{{location?.name}}</option>
+                                <option [value]="location?._id">{{location?.name}}</option>
                             </ng-container>
                             
                            
