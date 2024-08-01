@@ -195,6 +195,15 @@ export class SidebarComponent implements OnInit{
             isRequired: false,
             type: 'select',
             format: ''
+          },
+          {
+            formControlName: 'parentLocationId',
+            validations: [],
+            defaultValue: null,
+            placeHolder: '',
+            isRequired: false,
+            type: 'select',
+            format: ''
           }
         ],
         footerButtons: [

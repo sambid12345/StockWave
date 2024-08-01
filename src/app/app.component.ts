@@ -100,7 +100,7 @@ export class AppComponent implements OnInit, AfterViewChecked{
           this.homeService.createLocation({
             name: value?.locationName,
             description: value?.locationDescription,
-            parentLocationId: value?.parentLocation
+            parentLocationId: value?.parentLocationId
           }).subscribe({
             next: (response: any)=>{
               this.toastService.setToastInfo({showToast: true, toastMessage: response?.message|| 'success', toastType: 'success'});

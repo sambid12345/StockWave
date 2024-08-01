@@ -11,7 +11,8 @@ import { HomeService } from 'src/app/my-home/Service/home.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnChanges {
-  isOpen: boolean = true;
+  isOpen = true;
+  showParentLocDropdown = false
   // eyeToggleArr: any;
   currentPassToggleBtn: any;
   newPassToggleBtn: any;
@@ -137,7 +138,8 @@ export class ModalComponent implements OnInit, OnChanges {
     const currentPath = path ? `${path} -> ${location.name}` : location.name;
     result.push({
         locId: location._id,
-        path: currentPath
+        path: currentPath,
+        exactLoc: location.name
     });
     
 
@@ -169,6 +171,22 @@ export class ModalComponent implements OnInit, OnChanges {
         },
         error: (error: any) => {},
       });
+    }
+  }
+  openParentLocDropdown(){
+    
+    if(this.modalInfo && this.modalInfo?.popupName === 'createLocation'){
+      
+      this.showParentLocDropdown = !this.showParentLocDropdown ;
+    }
+  }
+  selectParentLoc(parentLocId: any, exactLoc: any, formCtrlName: any){
+    if(this.modalInfo && this.modalInfo?.popupName === 'createLocation' && this.modalForm){
+      this.modalForm.get(formCtrlName)?.patchValue(exactLoc);
+      this.modalForm.get('parentLocationId')?.patchValue(parentLocId);
+      console.log('form conrol name', formCtrlName);
+      console.log('form group value', this.modalForm);
+      this.showParentLocDropdown = false;
     }
   }
 }

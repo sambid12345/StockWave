@@ -108,7 +108,30 @@
                 <ng-container *ngIf="frmCtrl.type == 'select'">
                     <ng-container *ngIf="frmCtrl.formControlName == 'parentLocation'">
                         <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
-                        <select [formControlName]='frmCtrl.formControlName'
+                       
+                        <div class="relative">
+                            <input type="text" [formControlName]='frmCtrl.formControlName'
+                            [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' "
+                            class="w-full block p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none border-gray-300 focus:border-black">
+                            <button  type="button" (click)="openParentLocDropdown()"
+                                class="inline-flex items-center text-center absolute inset-y-0 right-0">
+                                <svg class="h-5 w-5 fill-gray-600 my-2 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
+                            </button>
+
+                            
+                            <div *ngIf="showParentLocDropdown && locationPaths.length > 0" class="w-[328px] mt-[5px] overflow-x-auto absolute bg-gray-100 scrollbar overflow-y-auto max-h-[170px] z-[60] border rounded-lg">
+                                <ul class="py-2 text-sm text-gray-700 ">
+                                    <li *ngFor="let pathObj of locationPaths" class="cursor-pointer hover:bg-btnPrimaryHover">
+                                        <a class="px-4 py-2 flex flex-col gap-1" (click)="selectParentLoc(pathObj?.locId,pathObj?.exactLoc, frmCtrl.formControlName)">
+                                            <span class="text-sm">{{pathObj?.exactLoc}}</span>
+                                            <span *ngIf="pathObj?.exactLoc != pathObj?.path" class="text-xs">{{pathObj?.path}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- <select [formControlName]='frmCtrl.formControlName'
                             class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
                             [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
                         
@@ -120,10 +143,10 @@
                             </ng-container>
                             
                            
-                        </select>
+                        </select> -->
                     </ng-container>
 
-                    <ng-container *ngIf="frmCtrl.formControlName != 'parentLocation'">
+                    <ng-container *ngIf="frmCtrl.formControlName != 'parentLocation' && frmCtrl.formControlName != 'parentLocationId'">
                         <label for="" class="p-1 text-sm">{{frmCtrl.placeHolder}}</label>
                         <select [formControlName]='frmCtrl.formControlName' class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
                         [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
