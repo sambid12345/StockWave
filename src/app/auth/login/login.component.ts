@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-
+    this.modalService.setClosePopupRequest();
     this.checkLoggedinStatus();
 
      this.loginForm = this.fb.group({
@@ -71,6 +71,9 @@ export class LoginComponent implements OnInit{
           setTimeout(()=>{
             this.autoLogout();
           }, tokenExpirationTime);
+          setTimeout(()=>{
+            this.showAutoLogoutWarningPopup(); // show warning popup 10 sec prior to auto logout
+          }, tokenExpirationTime - 10000);
         },
         error: (err:any)=>{
           console.log('error -- -- -- - ',err)
@@ -85,8 +88,13 @@ export class LoginComponent implements OnInit{
   }
 
   autoLogout(){
-    console.log('inside autologout');
-    
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('loggeinTimestamp');
+    localStorage.removeItem('expiresIn');
+    this.navigateTo('auth');
+  }
+
+  showAutoLogoutWarningPopup(){
     this.modalService.setModalInfo({
       showModal: true,
       popupName: 'autoLogout',
@@ -106,7 +114,7 @@ export class LoginComponent implements OnInit{
   }
 
   navigateTo(path:string){
-    this.router.navigate([path])
+    this.router.navigate([path]);
   }
 
   forgotPassword(){
@@ -152,5 +160,4 @@ export class LoginComponent implements OnInit{
       });
     }
   }
-
 }

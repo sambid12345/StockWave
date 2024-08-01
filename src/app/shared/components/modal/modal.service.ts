@@ -9,7 +9,7 @@ export class ModalService {
 
   constructor() { }
   modalInfo: Subject<Modal> = new Subject();
-
+  closePopupNotifier: Subject<any> = new Subject();
 
   setModalInfo(modalInfo: Modal){
     this.modalInfo.next(modalInfo);
@@ -17,4 +17,12 @@ export class ModalService {
   getModalInfo(){
     return this.modalInfo;
   }
+
+  getClosePopupRequest(){
+    return this.closePopupNotifier;
+  }
+  setClosePopupRequest(){
+    this.closePopupNotifier.next(1);
+  }
+
 }

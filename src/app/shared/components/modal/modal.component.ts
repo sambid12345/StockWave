@@ -71,9 +71,6 @@ export class ModalComponent implements OnInit, OnChanges {
     console.log('close clicked');
 
     if (this.modalInfo.popupName === 'autoLogout') {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('loggeinTimestamp');
-      localStorage.removeItem('expiresIn');
       this.router.navigate(['auth', 'login']);
       this.onModalClose.emit();
     } else if (this.modalInfo.popupName === 'forgotPassword') {
