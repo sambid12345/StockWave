@@ -5,6 +5,7 @@ import { MyHomeComponent } from "./my-home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ItemDetailComponent } from "./item-detail/item-detail.component";
 import { ItemComponent } from "./item/item.component";
+import { LocationComponent } from "./location/location.component";
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
         component: MyHomeComponent,
         children:[
             {path: 'home', component: HomeComponent},
+            {path: 'location', component: LocationComponent},
             {
                 path: 'profile', component: ProfileComponent
             },
