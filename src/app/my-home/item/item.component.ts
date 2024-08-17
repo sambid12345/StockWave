@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { HomeService } from '../Service/home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item',
@@ -13,7 +14,7 @@ export class ItemComponent implements OnInit{
   showOptions = false;
 
   itemList : any;
-  constructor(private homeService: HomeService){
+  constructor(private homeService: HomeService, private router: Router){
 
   }
 
@@ -53,6 +54,17 @@ export class ItemComponent implements OnInit{
       },
       error:(error)=>{console.log(error)}
     })
+  }
+
+  navigateTo(baseRouter: any, id: any,event: Event) {
+    if(event){
+      event.stopPropagation();
+    }
+    const hrefLink = `${baseRouter}${id}`;
+    console.log('link', hrefLink);
+    if(hrefLink){
+      this.router.navigate([hrefLink]);
+    }
   }
  
 }

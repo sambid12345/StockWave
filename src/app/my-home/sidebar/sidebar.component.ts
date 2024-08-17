@@ -122,6 +122,15 @@ export class SidebarComponent implements OnInit{
             format: ''
           },
           {
+            formControlName: 'parentLocationId',
+            validations: [],
+            defaultValue: null,
+            placeHolder: '',
+            isRequired: false,
+            type: 'select',
+            format: ''
+          },
+          {
             formControlName: 'itemName',
             validations: [Validators.required],
             defaultValue: '',

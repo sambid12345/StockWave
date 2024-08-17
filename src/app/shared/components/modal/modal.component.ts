@@ -155,7 +155,7 @@ export class ModalComponent implements OnInit, OnChanges {
     return result;
   }
   getLocationList() {
-    if (this.modalInfo.popupName === 'createLocation') {
+    if (this.modalInfo?.popupName === 'createLocation' || this.modalInfo?.popupName === 'createItem') {
       this.homeService.getLocations().subscribe({
         next: (locationList: any) => {
           this.locationTree = locationList;
@@ -172,13 +172,13 @@ export class ModalComponent implements OnInit, OnChanges {
   }
   openParentLocDropdown(){
     
-    if(this.modalInfo && this.modalInfo?.popupName === 'createLocation'){
+    if(this.modalInfo && this.modalInfo?.popupName === 'createLocation' || this.modalInfo?.popupName === 'createItem'){
       
       this.showParentLocDropdown = !this.showParentLocDropdown ;
     }
   }
   selectParentLoc(parentLocId: any, exactLoc: any, formCtrlName: any){
-    if(this.modalInfo && this.modalInfo?.popupName === 'createLocation' && this.modalForm){
+    if(this.modalInfo && (this.modalInfo?.popupName === 'createLocation' || this.modalInfo?.popupName === 'createItem') && this.modalForm){
       this.modalForm.get(formCtrlName)?.patchValue(exactLoc);
       this.modalForm.get('parentLocationId')?.patchValue(parentLocId);
       console.log('form conrol name', formCtrlName);

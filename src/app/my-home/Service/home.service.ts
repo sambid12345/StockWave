@@ -18,6 +18,10 @@ export class HomeService {
     let url = `${environment.baseUrl}home/locations`;
     return this.http.post(url, locationData);
   }
+  createItem(itemData: any){
+    let url = `${environment.baseUrl}home/items`;
+    return this.http.post(url, itemData);
+  }
   getLocations(){
     let url = `${environment.baseUrl}home/locations`;
     return this.http.get(url);

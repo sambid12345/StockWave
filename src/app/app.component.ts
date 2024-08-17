@@ -112,6 +112,24 @@ export class AppComponent implements OnInit, AfterViewChecked {
     } else if (this.modalInfo.popupName === 'createItem') {
       if (this.modalInfo.hasFormControls && value) {
         console.log('Item value', value);
+        this.homeService
+          .createItem(value)
+          .subscribe({
+            next: (response: any) => {
+              this.toastService.setToastInfo({
+                showToast: true,
+                toastMessage: response?.message || 'success',
+                toastType: 'success',
+              });
+            },
+            error: (error: any) => {
+              this.toastService.setToastInfo({
+                showToast: true,
+                toastMessage: error?.error?.message || 'Error Occured',
+                toastType: 'error',
+              });
+            },
+          });
       }
     } else if (this.modalInfo.popupName === 'createLocation') {
       if (this.modalInfo.hasFormControls && value) {

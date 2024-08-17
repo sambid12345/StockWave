@@ -16,6 +16,11 @@ const routes: Routes = [
             {path: 'home', component: HomeComponent},
             {path: 'location', component: LocationComponent},
             {
+                path: 'location/:locationId', 
+                component: LocationComponent
+                
+            },
+            {
                 path: 'profile', component: ProfileComponent
             },
             {

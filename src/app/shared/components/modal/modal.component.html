@@ -130,20 +130,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
-                        <!-- <select [formControlName]='frmCtrl.formControlName'
-                            class="block w-full p-1 text-gray-900 border rounded-lg bg-white text-sm focus:outline-none"
-                            [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
-                        
-                            <option [value]="null">None</option>
-                            <ng-container *ngFor="let pathObj of locationPaths">
-                                <option [value]="pathObj?.locId">
-                                    {{pathObj?.path}} 
-                                </option>
-                            </ng-container>
-                            
-                           
-                        </select> -->
                     </ng-container>
 
                     <ng-container *ngIf="frmCtrl.formControlName != 'parentLocation' && frmCtrl.formControlName != 'parentLocationId'">
@@ -152,9 +138,9 @@
                         [ngClass]="(!modalForm.get(frmCtrl.formControlName)?.valid && modalForm.get(frmCtrl.formControlName)?.touched) ? 'border-red-700 focus:border-red-700': 'border-gray-300 focus:border-black' ">
                             
                             <option [value]="null" ></option>
-                            <option value="CA">Canada</option>
-                            <option value="FR">France</option>
-                            <option value="DE">Germany</option>
+                            <option value="stuff1">stuff 1</option>
+                            <option value="stuff2">stuff 2</option>
+                            <option value="stuff3">stuff 3</option>
                         </select>
                     </ng-container>
                 </ng-container>
