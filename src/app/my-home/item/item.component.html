@@ -91,7 +91,10 @@
         <div *ngIf="itemList?.length>0; else noResult" 
             class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 lg:gap-4">
             <ng-container *ngFor="let item of itemList">
-                <a  (click)='navigateTo("/user/item/", item._id , $event)'  class="max-w-sm bg-white border border-gray-200 rounded-lg shadow w-[100%] hover:cursor-pointer">
+
+                <!-- href="/user/item/{{item._id}}" -->
+                <!-- (click)='navigateTo("/user/item/", item._id , $event)' -->
+                <a href="/user/item/{{item._id}}" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow w-[100%] hover:cursor-pointer">
                     <span class="relative">
                         <img class=" rounded-t-lg w-full h-32" src="https://voltalithiumhub.in/wp-content/uploads/2021/07/48V-20AH-Lithium-Ion-Battery-for-Hero-Flash-Hero-NYX-Hero-Optima-Tunwal-Yo-Bikes.jpeg" alt="" />
                         <a (click)='navigateTo("/user/location/", item.locationId._id , $event)' class="absolute left-2 px-2 bottom-[8px] bg-headerCol shadow-md rounded-md">

@@ -116,11 +116,16 @@ export class AppComponent implements OnInit, AfterViewChecked {
           .createItem(value)
           .subscribe({
             next: (response: any) => {
+              console.log('response', response);
               this.toastService.setToastInfo({
                 showToast: true,
                 toastMessage: response?.message || 'success',
                 toastType: 'success',
               });
+
+              if(response?.savedItemId){
+                this.router.navigate(['user','item', response?.savedItemId]);
+              }
             },
             error: (error: any) => {
               this.toastService.setToastInfo({

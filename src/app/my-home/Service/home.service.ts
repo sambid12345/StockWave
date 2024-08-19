@@ -14,6 +14,11 @@ export class HomeService {
     return this.http.get(url)
   }
 
+  getItemById(itemId: any){
+    let url = `${environment.baseUrl}home/items/${itemId}`;
+    return this.http.get(url)
+  }
+
   createLocation(locationData: any){
     let url = `${environment.baseUrl}home/locations`;
     return this.http.post(url, locationData);
